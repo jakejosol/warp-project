@@ -23,8 +23,8 @@ Application::GetInstance()
 
 // Set Application Pages
 Application::GetInstance()
-	->AddPage("facebook", "Facebook")
-	->AddPage("user", "User");
+	->AddPage("user", "User")
+	->SetDefault("NotFound");
 	
 Application::GetInstance()
 	->Start();	
