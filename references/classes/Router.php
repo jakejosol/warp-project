@@ -19,7 +19,9 @@ class Router
 			"add" => "Add",
 			"edit" => "Edit",
 			"delete" => "Delete",
-			"fetch" => "Fetch"
+			"fetch" => "Fetch",
+			"notify" => "Notify",
+			"receive" => "Receive"
 		)
 	);
 	
