@@ -26,6 +26,26 @@ class Security
 		$hasher = new PasswordHash(self::HASH_COST_LOG2, self::HASH_PORTABLE);
 		return $hasher->CheckPassword($password,$hash);
 	}
+	
+	public static function GenerateToken()
+	{
+		$token = md5(uniqid(mt_rand(), true));
+		Session::Set("SESSION_TOKEN", $token);
+	}
+	
+	public static function GetToken()
+	{
+		return Session::Get("SESSION_TOKEN");
+	}
+	
+	public static function ValidateToken($token)
+	{
+		$sessionToken = Session::Get("SESSION_TOKEN");
+		if($sessionToken == $token)
+			return true;
+		else
+			return false;
+	}
 }
 
 ?>
