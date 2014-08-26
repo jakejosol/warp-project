@@ -8,7 +8,7 @@
  
 class Fragment implements IElement
 {
-	const VIEW_FILE_DIRECTORY = "/application/design/";
+	const VIEW_FILE_DIRECTORY = "application/design/";
 	protected $file;
 	protected $data;
 		

@@ -21,14 +21,14 @@ CLASS DEFINITION
 ****************************************/
 class Reference
 {
-	const CLASS_DIRECTORY = "D:/home/site/wwwroot/references/classes/";
-	const MODEL_DIRECTORY = "D:/home/site/wwwroot/application/build/models/";
-	const CONTROLLER_DIRECTORY = "D:/home/site/wwwroot/application/build/controllers/";
-	const VIEW_DIRECTORY = "D:/home/site/wwwroot/application/build/views/";
-	const ENUMERATION_DIRECTORY = "D:/home/site/wwwroot/references/enumerations/";
-	const CONTROL_DIRECTORY = "D:/home/site/wwwroot/references/controls/";
-	const INTERFACE_DIRECTORY = "D:/home/site/wwwroot/references/interfaces/";
-	const VENDOR_DIRECTORY = "D:/home/site/wwwroot/references/vendors/";
+	const CLASS_DIRECTORY = getcwd()."/references/classes/";
+	const MODEL_DIRECTORY = getcwd()."/application/build/models/";
+	const CONTROLLER_DIRECTORY = getcwd()."/application/build/controllers/";
+	const VIEW_DIRECTORY = getcwd()."/application/build/views/";
+	const ENUMERATION_DIRECTORY = getcwd()."/references/enumerations/";
+	const CONTROL_DIRECTORY = getcwd()."/references/controls/";
+	const INTERFACE_DIRECTORY = getcwd()."/references/interfaces/";
+	const VENDOR_DIRECTORY = getcwd()."/references/vendors/";
 	const ERROR_REFERENCE = "Sorry, the reference does not exist.";
 	
 	private static function Import($name)
