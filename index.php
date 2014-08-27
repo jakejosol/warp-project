@@ -23,8 +23,7 @@ Application::GetInstance()
 
 // Set Application Pages
 Application::GetInstance()
-	->AddPage("user", "User")
-	->SetDefaultPage("NotFound");
+	->AddPage("user", "User");
 	
 Application::GetInstance()
 	->Start();	
