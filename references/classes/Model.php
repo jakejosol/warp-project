@@ -185,6 +185,17 @@ class Model
 		$command->SetType("DELETE");
 		$command->Execute();
 	}
+
+
+	public function SoftDelete()
+	{
+		// SoftDelete only works on tables with "deletedAt" column.
+		$command = new CommandQuery(static::$GetSource(), static::GetKey());
+		$command->WhereEqualTo(static::GetKey() ,static::GetKeyValue());
+		$command->SetType("EDIT");
+		$command->BindParameter("deletedAt", date("Y-m-d h:i:s"), null);
+		$command->Execute();
+	}
 }
 
 ?>
