@@ -6,6 +6,7 @@
 		<style>
 			body
 			{
+				font-family:Source Sans Pro;
 				background:#009afd;
 				color:#ffffff;
 			}

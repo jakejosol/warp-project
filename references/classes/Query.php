@@ -287,6 +287,12 @@
 		$queryObject = $this->GetQueryObject();
 		return Database::FetchAll($queryObject->QueryString, $queryObject->Parameters);
 	}
+	
+	public function First()
+	{
+		$results = $this->Find();
+		return $results[0];
+	}
  }
 
  

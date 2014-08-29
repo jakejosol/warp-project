@@ -24,6 +24,13 @@ class Model
 	}
 	
 	/**
+	 * Model initializer
+	 */
+	protected function initialize()
+	{
+	}
+	
+	/**
 	 * Getter
 	 * @params string name
 	 * @return string value
@@ -106,7 +113,8 @@ class Model
 	{
 		$relation = static::$fields[$field]["relation"];
 		$key = static::$fields[$field]["key"];
-		$query = new Query($relation);
+		$modelName = $relation . "Model";
+		$query = $modelName::GetQuery();
 		$query->WhereEqualTo($key, $this->values[static::GetKey()]);
 		
 		return $query;

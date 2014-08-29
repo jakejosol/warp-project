@@ -14,6 +14,7 @@ class Application
 	protected $description;
 	protected $keywords;
 	protected $debugMode;
+	protected $path;
 	const REFERENCE_MANAGER = "references/ReferenceManager.php";
 	const RESOURCE_MANAGER = "resources/ResourceManager.php";
 	
@@ -29,6 +30,17 @@ class Application
 		
 		static::$instance = new Application();		
 		return static::$instance;
+	}
+	
+	public function SetPath($path)
+	{
+		$this->path = $path;
+		return $this;
+	}
+	
+	public function GetPath()
+	{
+		return $this->path;
 	}
 	
 	public function SetTitle($title)

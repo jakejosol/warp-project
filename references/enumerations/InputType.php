@@ -16,6 +16,9 @@ class InputType
 	const EMAIL = "email";
 	const HIDDEN = "hidden";
 	const DISPLAY = "display";
+	const TEXTAREA = "textarea";
+	const SELECT = "select";
+	const FILE = "file";
 }
  
 ?>
