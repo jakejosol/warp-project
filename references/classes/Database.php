@@ -159,10 +159,11 @@ class Database
 	 * Execute a Create, Insert, Update or Delete Query
 	 * @output String Rows affected
 	 */
-	public static function Execute($statement, $parameters = array())
+	public static function Execute($statement, $parameters = array(), $return=false)
 	{
 		$db = self::connect();
 		$rowsAffected = 0;
+		$lastID = 0;
 		
 		try
 		{
@@ -178,15 +179,24 @@ class Database
 				$query->bindParam($key,$parameter["value"],$parameter["type"]);
 			}
 			
+			$db->beginTransaction();
 			$query->execute();
 			$rowsAffected += $query->rowCount();
+			$lastID = $db->lastInsertId();
+			$db->commit();
 		}
 		catch (PDOException $e)
 		{
 			echo Debugger::WriteError("Sorry, there was a problem with query execution. ({$e->getMessage()}) $statement");
 		}
 		
-		return $rowsAffected;
+		$returnObject = (object) array(
+			DatabaseReturn::ROWS_AFFECTED => $rowsAffected,
+			DatabaseReturn::LAST_INSERT_ID => $lastID
+		);
+		
+		if($return) return $returnObject;
+		else return $rowsAffected;
 	}
 	
 	/** 

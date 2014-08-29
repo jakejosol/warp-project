@@ -207,14 +207,10 @@ class Model
 				&& !isset($details["translate"]))
 				$command->BindParameter($field, $this->values[$field], $details["type"]);
 		
-		$command->Execute();
+		$commandReturn = $command->Execute();
 		
-		$query = new Query(static::GetSource());
-		$query->WhereEqualTo(SystemField::UPDATED_AT, $this->values[SystemField::UPDATED_AT]);
-		$query->OrderByDescending(static::GetKey());
-		$result = $query->First();
-		
-		$this->SetKeyValue($result["objectID"]);
+		if(static::GetKeyValue() == null) $this->SetKeyValue($commandReturn->lastInsertID);
+		return $commandReturn->rowsAffected;
 	}
 	
 	public function Delete()

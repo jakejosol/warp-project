@@ -24,11 +24,10 @@ class Application
 	
 	public static function Initialize()
 	{
-		require_once self::REFERENCE_MANAGER;
-		require_once self::RESOURCE_MANAGER;
         date_default_timezone_set("UTC");
-		
-		static::$instance = new Application();		
+		require_once self::REFERENCE_MANAGER;		
+		static::$instance = new Application();
+		require_once self::RESOURCE_MANAGER;	
 		return static::$instance;
 	}
 	

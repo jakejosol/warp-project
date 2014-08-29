@@ -33,7 +33,10 @@ class Router
 	
 	public static function GetURL()
 	{
-		return $_SERVER['REQUEST_URI'];
+		$URL = $_SERVER['REQUEST_URI'];
+		if(static::$path) $URL = str_replace(static::$path."/", "", $_SERVER['REQUEST_URI']);
+		
+		return $URL;
 	}
 	
 	public static function GetURLElements()
@@ -43,7 +46,10 @@ class Router
 		
 		$URL = explode(static::$elementDelimiter, $requestURI); 
 		
-		if(static::$path) array_shift($URL);
+		array_shift($URL);
+		
+		$lastItemIndex = count($URL) - 1;
+		if($lastItemIndex >= 0 && $URL[$lastItemIndex] == "") unset($URL[$lastItemIndex]);
 		
 		return $URL;
 	}
@@ -142,15 +148,16 @@ class Router
 	{
 		static::$home = function() use ($class)
 		{
-			$name = $clss."Controller";
+			$name = $class."Controller";
 			$page = new $name();
 			return $page->IndexAction(Router::GetURL(), Router::GetParameters());
-		});
+		};
 	}
 	
 	public static function Fetch()
 	{
-		if(count(static::GetURLElements()) == 0) static::$home();
+		$homePage = static::$home;
+		if(count(static::GetURLElements()) == 0) return $homePage();
 		
 		if(!static::$patterns) static::$patterns = new PatternList();
 	

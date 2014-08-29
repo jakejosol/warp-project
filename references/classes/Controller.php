@@ -8,8 +8,8 @@
  
 class Controller
 {
-	protected static $model = "Model";
-	protected static $view = "View";
+	protected static $model = str_replace("Controller", "Model", get_called_class());
+	protected static $view = str_replace("Controller", "View", get_called_class());
 	protected static $patterns;
 	
 	public static function GetModel()

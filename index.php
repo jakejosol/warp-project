@@ -12,6 +12,7 @@ INITIALIZE THE APPLICATION
 ****************************************/
 Application::Initialize()
 	->SetDebugMode(DebugMode::PRODUCTION)
+	->SetPath("warp")
 	->SetDatabase("main");
 	
 // Set Application details
@@ -23,7 +24,8 @@ Application::GetInstance()
 
 // Set Application Pages
 Application::GetInstance()
-	->AddPage("user", "User");
+	->SetHomePage("Home")
+	->AddPage("user","User");
 	
 Application::GetInstance()
 	->Start();	

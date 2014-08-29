@@ -92,7 +92,7 @@
 	public function Execute()
 	{
 		$queryObject = $this->GetQueryObject();
-		return Database::Execute($queryObject->QueryString, $queryObject->Parameters);
+		return Database::Execute($queryObject->QueryString, $queryObject->Parameters, true);
 	}
  }
  
