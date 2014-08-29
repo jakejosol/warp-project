@@ -157,7 +157,7 @@
 	
 	public function IncludeFields()
 	{
-		$fields = get_func_args();
+		$fields = func_get_args();
 		
 		foreach($fields as $field) $this->select[] = $field;		
 		return $this;

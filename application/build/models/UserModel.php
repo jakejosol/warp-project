@@ -10,40 +10,22 @@ class UserModel extends Model
 {
 	protected static $source = "_User";
 	protected static $key = "objectID";
-	protected static $fields = array(
-		"objectID" => array(
-			"label" => "ID",
-			"type" => FieldType::INTEGER,
-			"increment" => true,
-			"input" => InputType::DISPLAY
-		),
-		"apiKey" => array(
-			"label" => "API Key",
-			"type" => FieldType::INTEGER,
-			"input" => InputType::INTEGER
-		),
-		"username" => array(
-			"label" => "Username",
-			"type" => FieldType::STRING
-		),
-		"password" => array(
-			"label" => "Password",
-			"type" => FieldType::STRING
-		),
-		"firstName" => array(
-			"label" => "First Name",
-			"type" => FieldType::STRING
-		),
-		"lastName" => array(
-			"label" => "Last Name",
-			"type" => FieldType::STRING
-		),
-		"email" => array(
-			"label" => "Email",
-			"type" => FieldType::STRING,
-			"input" => InputType::EMAIL
-		)
-	);
+
+	protected static function initialize()
+	{
+		self::Has("objectID")->Label("ID")->Type(FieldType::INTEGER)->Input(InputType::DISPLAY);
+		self::Has("apiKey")->Label("API Key");
+		self::Has("username")->Label("Username");
+		self::Has("password")->Label("Password")->Type(FieldType::PASSWORD);
+		self::Has("firstName")->Label("First Name");
+		self::Has("lastName")->Label("Last Name");
+		self::Has("email")->Label("Email")->Input(InputType::EMAIL);
+
+		self::Scope("apiUsers", function($query)
+		{
+			$query->WhereIsNotNull("apiKey");
+		});
+	}
 }
 
 ?>

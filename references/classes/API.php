@@ -27,7 +27,7 @@ class API
 		{
 			case static::$REQUEST_TYPE["REST"]:
 				if (class_exists($controllerName) && count($requestParams) > 0) 
-				{    
+				{
 					// Retrieve Array
 					$controller = new $controllerName();    
 					$actionName = $requestParams["action"] . "Action";

@@ -10,10 +10,8 @@ require_once "references/classes/Application.php";
 /****************************************
 INITIALIZE THE APPLICATION
 ****************************************/
-Application::Initialize()
-	->SetDebugMode(DebugMode::PRODUCTION)
-	->SetPath("warp")
-	->SetDatabase("main");
+Application::Initialize("warp")
+	->SetConfiguration(new ProdConfiguration);
 	
 // Set Application details
 Application::GetInstance()
@@ -26,8 +24,8 @@ Application::GetInstance()
 Application::GetInstance()
 	->SetHomePage("Home")
 	->AddPage("user","User");
-	
-Application::GetInstance()
-	->Start();	
 
+// Start the application	
+Application::GetInstance()
+	->Start();
 ?>

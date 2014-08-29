@@ -11,8 +11,8 @@ class Model
 	protected static $source;
 	protected static $key;
 	protected static $fields = array();
+	protected static $scopes = array();
 	protected $values = array();
-	protected $scopes = array();
 	
 	/**
 	 * Class construct
@@ -21,7 +21,7 @@ class Model
 	public function __construct($key=null)
 	{
 		static::initialize();
-		static::addSytemFields();
+		static::addSystemFields();
 		foreach(static::$fields as $field => $value) $this->values[$field] = null;
 		static::SetKeyValue($key);
 	}
@@ -33,9 +33,9 @@ class Model
 	
 	protected static function addSystemFields()
 	{
-		static::Has(SystemField::CREATED_AT)->Type(FieldType::DATETIME);
-		static::Has(SystemField::UPDATED_AT)->Type(FieldType::DATETIME);
-		static::Has(SystemField::DELETED_AT)->Type(FieldType::DATETIME);
+		static::Has(SystemField::CREATED_AT)->Type(FieldType::DATETIME)->Guarded();
+		static::Has(SystemField::UPDATED_AT)->Type(FieldType::DATETIME)->Guarded();
+		static::Has(SystemField::DELETED_AT)->Type(FieldType::DATETIME)->Guarded();
 	}
 	
 	/**
@@ -65,6 +65,16 @@ class Model
 	public function GetFieldLabel($name)
 	{
 		return static::$fields[$name]["label"];
+	}
+
+	public function GetFieldRequired($name)
+	{
+		return static::$fields[$name]["required"];
+	}
+
+	public function GetFieldGuarded($name)
+	{
+		return static::$fields[$name]["guarded"];
 	}
 	
 	/**
@@ -160,7 +170,7 @@ class Model
 			if($details["type"] != FieldType::RELATION)
 				$query->IncludeField($field);
 
-		$scopes = get_func_args();		
+		$scopes = func_get_args();		
 				
 		foreach($scopes as $scope)
 		{
@@ -201,11 +211,20 @@ class Model
 		}
 		
 		foreach(static::$fields as $field => $details)
-			if(!$details["increment"] 
-				&& !isset($details["relation"])
-				&& !isset($details["pointer"])
-				&& !isset($details["translate"]))
+		{
+			if(!$this->GetFieldGuarded($field))
 				$command->BindParameter($field, $this->values[$field], $details["type"]);
+			else
+			{
+				switch($this->GetFieldType[$field])
+				{
+					case FieldType::POINTER:
+						$command->BindParameter($field, $this->values[$field]->GetKeyValue(), $details["type"]);
+					break;
+				}
+			}
+		}
+
 		
 		$commandReturn = $command->Execute();
 		
@@ -220,7 +239,6 @@ class Model
 		$command->SetType(CommandType::DELETE);
 		$command->Execute();
 	}
-
 
 	public function SoftDelete()
 	{

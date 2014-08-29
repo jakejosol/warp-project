@@ -28,16 +28,6 @@ class Database
 		static::$configurations[$key] = $configuration;
 	}
 	
-	private static function loadConfigurations()
-	{
-		static::AddConfiguration("main", new DatabaseConfiguration(
-											DatabaseVendor::SQL_SERVER,
-											"server",
-											"username",
-											"password",
-											"database"));
-	}
-	
 	/**
 	 * Connect to the Database
 	 */

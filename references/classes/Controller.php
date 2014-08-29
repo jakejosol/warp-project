@@ -8,8 +8,8 @@
  
 class Controller
 {
-	protected static $model = str_replace("Controller", "Model", get_called_class());
-	protected static $view = str_replace("Controller", "View", get_called_class());
+	protected static $model = null;
+	protected static $view = null;
 	protected static $patterns;
 	
 	public static function GetModel()
@@ -34,11 +34,11 @@ class Controller
 	
 	public function ViewAction($url, $parameters)
 	{
-		$controllerPath = Router::GetURLElementAt(2);
+		$controllerPath = Router::GetURLElementAt(1);
 		if(!static::$patterns) static::$patterns = new PatternList();
 		
 		static::$patterns
-			->AddPattern("/api\/{$controllerPath}\/view$/", function()
+			->AddPattern("/^\/api\/{$controllerPath}\/view$/", function()
 			{
 				$query = static::GetModel()->GetQuery();
 				$query->OrderByDescending(static::GetModel()->GetKey());
@@ -58,15 +58,14 @@ class Controller
 						
 						$results[$key][$itemRelation] = $model->GetRelation($itemRelation)->Find();
 					}	
-				
+
 				return json_encode($results);			
 			})
-			->AddPattern("/api\/{$controllerPath}\/view\/\d/", function() use ($url)
+			->AddPattern("/^\/api\/{$controllerPath}\/view\/\d/", function() use ($url)
 			{
-				
 				$listUrl = explode("/", $url);
 				$model = static::GetModel();
-				$model->SetKeyValue($listUrl[4]);
+				$model->SetKeyValue($listUrl[2]);
 				$model->Fetch();
 				$result = array();
 				

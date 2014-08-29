@@ -17,29 +17,28 @@ class Application
 	const REFERENCE_MANAGER = "references/ReferenceManager.php";
 	const RESOURCE_MANAGER = "resources/ResourceManager.php";
 	
+	private function __construct() {}
+
 	public static function GetInstance()
 	{
 		return static::$instance;
 	}
 	
-	public static function Initialize()
+	public static function Initialize($path=null)
 	{
         date_default_timezone_set("UTC");
-		require_once self::REFERENCE_MANAGER;		
-		static::$instance = new Application();
-		require_once self::RESOURCE_MANAGER;	
+
+		require_once self::REFERENCE_MANAGER;	
+		static::$instance = new Application;
+		if($path) Router::SetPath($path);		
+		require_once self::RESOURCE_MANAGER;
+
 		return static::$instance;
 	}
 	
 	public function SetTimezone($timezone)
 	{
 		date_default_timezone_set($timezone);
-	}
-	
-	public function SetPath($path)
-	{
-		Router::SetPath($path);
-		return $this;
 	}
 	
 	public function GetPath()
@@ -112,6 +111,11 @@ class Application
 		}
 		
 		return $this;
+	}
+	
+	public function SetConfiguration($configuration)
+	{
+		$configuration->Apply();
 	}
 	
 	public function AddPage($name, $class)

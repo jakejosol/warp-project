@@ -15,9 +15,11 @@ class CrudForm extends Form
 	public function SetModel($model)
 	{	
 		$this->children = array();
-			
+
 		foreach($model->GetValues() as $field => $value)
 		{			
+			if($model->GetFieldGuarded($field)) continue;
+
 			$input = Input::Create($field)
 					->SetName($field)
 					->SetValue($value)

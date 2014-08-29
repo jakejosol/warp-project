@@ -8,25 +8,27 @@
  
 class Configuration
 {
-	public function Prepare()
-	{
-		$this->SetTimezone("UTC");
-	}
+	public function Apply() {}
 
-	public function SetPath($path)
+	public function SetDebugMode($debugMode)
 	{
-		Application::GetInstance()->SetPath($path);
+		Application::GetInstance()->SetDebugMode($debugMode);
 	}
-
+	
 	public function SetTimezone($timezone)
 	{
 		Application::GetInstance()->SetTimezone($timezone);
 	}
 
-	public function AddDatabase($databaseConfig)
+	public function AddDatabase($name, $databaseConfig)
 	{
-		Database::AddConfiguration($databaseConfig);
-	}	
+		Database::AddConfiguration($name, $databaseConfig);
+	}
+
+	public function SetDatabase($database)
+	{
+		Application::GetInstance()->SetDatabase($database);
+	}
 }
 
 ?>

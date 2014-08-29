@@ -68,7 +68,7 @@ class Router
 	public static function GetAction()
 	{
 		$action = "";
-		if(count(static::GetURLElements()) > 3) $action = static::GetURLElementAt(3);
+		if(count(static::GetURLElements()) >= 3) $action = static::GetURLElementAt(2);
 		
 		return $action;
 	}
@@ -168,7 +168,7 @@ class Router
 				$action = Router::GetAction();
 				
 				$requestParams = array(
-					"class" => Router::GetURLElementAt(2),
+					"class" => Router::GetURLElementAt(1),
 					"action" => Router::$ACTION_TYPE[$verb][$action],
 					"parameters" => Router::GetParameters()					
 				);
@@ -180,7 +180,7 @@ class Router
 				$verb = Router::GetVerb();
 				if($verb != "POST") return;
 				
-				$engineName = Router::GetURLElementAt(2);
+				$engineName = Router::GetURLElementAt(1);
 				$runParams = Router::GetParameters();
 				
 				$engine = Engine::Load($engineName);

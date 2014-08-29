@@ -22,7 +22,7 @@ class CrudView extends View
 		
 	public function Render($url)
 	{
-		$root = Router::GetURLElementAt(1);
+		$root = Router::GetURLElementAt(0);
 		$layout = static::GetLayout();
 		$path = static::GetPath();
 				
