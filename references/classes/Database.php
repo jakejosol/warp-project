@@ -44,9 +44,7 @@ class Database
 	private static function connect()
 	{
 		try 
-		{
-			static::loadConfigurations();
-			
+		{			
 			$configuration = static::$configurations[static::$currentDatabase];
 			if(static::$currentDatabase == null) $configuration = static::$configurations[0];
 			if(!$configuration) throw new Exception("Sorry, could not find the database configuration.");

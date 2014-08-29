@@ -21,6 +21,7 @@ class Model
 	public function __construct($key=null)
 	{
 		static::initialize();
+		static::addSytemFields();
 		foreach(static::$fields as $field => $value) $this->values[$field] = null;
 		static::SetKeyValue($key);
 	}
@@ -29,6 +30,13 @@ class Model
 	 * Model initializer
 	 */
 	protected static function initialize() {}
+	
+	protected static function addSystemFields()
+	{
+		static::Has(SystemField::CREATED_AT)->Type(FieldType::DATETIME);
+		static::Has(SystemField::UPDATED_AT)->Type(FieldType::DATETIME);
+		static::Has(SystemField::DELETED_AT)->Type(FieldType::DATETIME);
+	}
 	
 	/**
 	 * Getter
@@ -130,22 +138,31 @@ class Model
 		return $this->values;
 	}
 	
-	public static function GetQuery($scope=null)
+	public function GetCreatedAt()
+	{
+		return $this->fields[SystemField::CREATED_AT];
+	}
+	
+	public function GetUpdatedAt()
+	{
+		return $this->fields[SystemField::UPDATED_AT];
+	}
+	
+	public function GetDeletedAt()
+	{
+		return $this->fields[SystemField::DELETED_AT];
+	}
+	
+	public static function GetQuery()
 	{		
 		$query =  new Query(static::GetSource());
 		foreach(static::$fields as $field => $details) 
 			if($details["type"] != FieldType::RELATION)
 				$query->IncludeField($field);
 
-		if(is_array($scope))
-		{
-			foreach($scope as $scopeItem)
-			{
-				$scopeAction = static::$scopes[$scopeItem];
-				$query = $scopeAction($query);
-			}
-		}
-		else if ($scope)
+		$scopes = get_func_args();		
+				
+		foreach($scopes as $scope)
 		{
 			$scopeAction = static::$scopes[$scope];
 			$query = $scopeAction($query);
@@ -159,9 +176,9 @@ class Model
 		$query = static::GetQuery();
 		$query->WhereEqualTo(static::GetKey(), static::GetKeyValue());
 		
-		$result = $query->Find();
+		$result = $query->First();
 				
-		foreach($result[0] as $key => $item) $this->values[$key] = $item;
+		if($result) foreach($result as $key => $item) $this->values[$key] = $item;
 		
 		return $result;
 	}
@@ -170,34 +187,41 @@ class Model
 	{
 		$command = new CommandQuery(static::GetSource(), static::GetKey());
 		
-		foreach(static::$fields as $field => $details)
-			if(!isset($details["increment"]) && $details["type"] != FieldType::RELATION)
-				$command->BindParameter($field, $this->values[$field], $details["type"]);
-
 		if(static::GetKeyValue() == null)
 		{
-			$command->SetType("ADD");
+			$command->SetType(CommandType::ADD);
+			$this->values[SystemField::CREATED_AT] = date("Y-m-d H:i:s");
+			$this->values[SystemField::UPDATED_AT] = date("Y-m-d H:i:s");
 		}
 		else
 		{
-			$command->SetType("EDIT");
+			$command->SetType(CommandType::EDIT);
 			$command->WhereEqualTo(static::GetKey(), static::GetKeyValue());
+			$this->values[SystemField::UPDATED_AT] = date("Y-m-d H:i:s");
 		}
+		
+		foreach(static::$fields as $field => $details)
+			if(!$details["increment"] 
+				&& !isset($details["relation"])
+				&& !isset($details["pointer"])
+				&& !isset($details["translate"]))
+				$command->BindParameter($field, $this->values[$field], $details["type"]);
 		
 		$command->Execute();
 		
 		$query = new Query(static::GetSource());
+		$query->WhereEqualTo(SystemField::UPDATED_AT, $this->values[SystemField::UPDATED_AT]);
 		$query->OrderByDescending(static::GetKey());
-		$results = $query->Find();
+		$result = $query->First();
 		
-		$this->SetKeyValue($results[0]["objectID"]);
+		$this->SetKeyValue($result["objectID"]);
 	}
 	
 	public function Delete()
 	{
 		$command = new CommandQuery(static::GetSource(), static::GetKey());
 		$command->WhereEqualTo(static::GetKey(), static::GetKeyValue());
-		$command->SetType("DELETE");
+		$command->SetType(CommandType::DELETE);
 		$command->Execute();
 	}
 
@@ -207,8 +231,8 @@ class Model
 		// SoftDelete only works on tables with "deletedAt" column.
 		$command = new CommandQuery(static::$GetSource(), static::GetKey());
 		$command->WhereEqualTo(static::GetKey() ,static::GetKeyValue());
-		$command->SetType("EDIT");
-		$command->BindParameter("deletedAt", date("Y-m-d h:i:s"), null);
+		$command->SetType(CommandType::EDIT);
+		$command->BindParameter(SystemField::DELETED_AT, date("Y-m-d H:i:s"), null);
 		$command->Execute();
 	}
 	

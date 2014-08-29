@@ -155,6 +155,14 @@
 		return $this;
 	}
 	
+	public function IncludeFields()
+	{
+		$fields = get_func_args();
+		
+		foreach($fields as $field) $this->select[] = $field;		
+		return $this;
+	}
+	
 	public function Join($source, $field, $connector, $type="INNER_JOIN")
 	{
 		$this->joins[] = array(
@@ -225,7 +233,7 @@
 						$listParameters[":{$uniqueBinding}{$counterParameters}"] = array("value" => $listItem);
 						$counterParameters++;
 					}
-					$items = implode(",", $listItems);
+					$items = "'".implode("','", $listItems)."'";
 					$clauseItem = "{$clause["field"]} {$clause["type"]} ({$items})";
 				break;
 				

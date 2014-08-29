@@ -26,9 +26,15 @@ class Application
 	{
 		require_once self::REFERENCE_MANAGER;
 		require_once self::RESOURCE_MANAGER;
+        date_default_timezone_set("UTC");
 		
 		static::$instance = new Application();		
 		return static::$instance;
+	}
+	
+	public function SetTimezone($timezone)
+	{
+		date_default_timezone_set($timezone);
 	}
 	
 	public function SetPath($path)
@@ -118,6 +124,12 @@ class Application
 	public function AddEngine($name, $title, $type, $file)
 	{
 		Engine::AddEngine($name, $title, $type, $file);
+		return $this;
+	}
+	
+	public function SetHomePage($class)
+	{
+		Router::SetHome($class);
 		return $this;
 	}
 	

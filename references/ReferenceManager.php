@@ -29,6 +29,7 @@ class Reference
 	const CONTROL_DIRECTORY = "references/controls/";
 	const INTERFACE_DIRECTORY = "references/interfaces/";
 	const VENDOR_DIRECTORY = "references/vendors/";
+	const CONFIGURATION_DIRECTORY = "references/configurations/";
 	const ERROR_REFERENCE = "Sorry, the reference does not exist.";
 	
 	private static function Import($name)
@@ -71,6 +72,11 @@ class Reference
 		static::Import(self::INTERFACE_DIRECTORY."{$name}.php");
 	}
 	
+	public static function ImportConfiguration($name)
+	{
+		static::Import(self::CONFIGURATION_DIRECTORY."{$name}.php");
+	}
+	
 	public static function ImportReference($name)
 	{
 		$classExists = file_exists(self::CLASS_DIRECTORY."{$name}.php");
@@ -80,6 +86,7 @@ class Reference
 		$enumerationExists = file_exists(self::ENUMERATION_DIRECTORY."{$name}.php");
 		$controlExists = file_exists(self::CONTROL_DIRECTORY."{$name}.php");
 		$interfaceExists = file_exists(self::INTERFACE_DIRECTORY."{$name}.php");
+		$configurationExists = file_exists(self::CONFIGURATION_DIRECTORY."{$name}.php");
 		
 		if($classExists) static::ImportClass($name);
 		else if($modelExists) static::ImportModel($name);
@@ -88,6 +95,7 @@ class Reference
 		else if($enumerationExists) static::ImportEnumeration($name);
 		else if($controlExists) static::ImportControl($name);
 		else if($interfaceExists) static::ImportInterface($name);
+		else if($configurationExists) static::ImportConfiguration($name);
 		else Debugger::WriteError(self::ERROR_REFERENCE . " ({$name})");
 	}
 	
