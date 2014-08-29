@@ -6,7 +6,7 @@
  * @description Production Configuration
  */
  
-class ProdConfiguration extends Configuration
+class ProdConfig extends Configuration implements IConfiguration
 {
 	public function Apply()
 	{

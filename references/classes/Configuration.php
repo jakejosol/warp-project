@@ -8,8 +8,6 @@
  
 class Configuration
 {
-	public function Apply() {}
-
 	public function SetDebugMode($debugMode)
 	{
 		Application::GetInstance()->SetDebugMode($debugMode);

@@ -11,7 +11,7 @@ require_once "references/classes/Application.php";
 INITIALIZE THE APPLICATION
 ****************************************/
 Application::Initialize("warp")
-	->SetConfiguration(new ProdConfiguration);
+	->SetConfiguration(new ProdConfig);
 	
 // Set Application details
 Application::GetInstance()
