@@ -11,6 +11,7 @@ class Router
 	private static $path;
 	private static $patterns;
 	private static $elementDelimiter = "/";
+	private static $home;
 	public static $ACTION_TYPE = array(
 		"GET" => array(
 			"view" => "View"
@@ -66,6 +67,28 @@ class Router
 		return $action;
 	}
 	
+	public static function SetPath($path)
+	{
+		static::$path = $path;
+	}
+	
+	public static function GetPath()
+	{
+		return static::$path;
+	}
+	
+	public static function AddVerb($verb)
+	{
+		if(static::$ACTION_TYPE[$verb]) return;
+		static::$ACTION_TYPE[$verb] = array();
+	}
+	
+	public static function AddAction($verb, $action)
+	{
+		static::AddVerb($verb);
+		static::$ACTION_TYPE[$verb][] = $action;
+	}
+	
 	public static function GetParameters()
 	{
 		$parameters = array();
@@ -97,7 +120,8 @@ class Router
 	{
 		if(!static::$patterns) static::$patterns = new PatternList();
 	
-		static::$patterns->AddPattern($name, function() use ($class){
+		static::$patterns->AddPattern($name, function() use ($class)
+		{
 			$name = $class."Controller";
 			$page = new $name();
 			return $page->IndexAction(Router::GetURL(), Router::GetParameters());
@@ -106,8 +130,19 @@ class Router
 	
 	public static function SetDefaultPath($class)
 	{
-		static::$patterns->SetDefault(function() use ($class){
+		static::$patterns->SetDefault(function() use ($class)
+		{
 			$name = $class."Controller";
+			$page = new $name();
+			return $page->IndexAction(Router::GetURL(), Router::GetParameters());
+		});
+	}
+	
+	public static function SetHome($class)
+	{
+		static::$home = function() use ($class)
+		{
+			$name = $clss."Controller";
 			$page = new $name();
 			return $page->IndexAction(Router::GetURL(), Router::GetParameters());
 		});
@@ -115,10 +150,13 @@ class Router
 	
 	public static function Fetch()
 	{
+		if(count(static::GetURLElements()) == 0) static::$home();
+		
 		if(!static::$patterns) static::$patterns = new PatternList();
 	
 		static::$patterns
-			->AddPattern("/^\/api\//", function(){
+			->AddPattern("/^\/api\//", function()
+			{
 				$verb = Router::GetVerb();
 				$action = Router::GetAction();
 				
@@ -130,9 +168,10 @@ class Router
 					
 				return API::Request($requestParams);
 			})
-			->AddPattern("/^\/engines\//", function(){
+			->AddPattern("/^\/engines\//", function()
+			{
 				$verb = Router::GetVerb();
-				//if($verb != "POST") return;
+				if($verb != "POST") return;
 				
 				$engineName = Router::GetURLElementAt(2);
 				$runParams = Router::GetParameters();
@@ -141,12 +180,13 @@ class Router
 					
 				return ($engine) ? $engine->Run($runParams) : Engine::ShowError(404, "Unknown request");
 			})
-			->SetDefault(function(){
+			->SetDefault(function()
+			{
 				$viewNotFound = new NotFoundView();
 				return $viewNotFound->Render();
 			});
 		
-		return static::$patterns->FindMatch($_SERVER['REQUEST_URI'])->Execute();
+		return static::$patterns->FindMatch(static::GetURL())->Execute();
 	}
 }
  

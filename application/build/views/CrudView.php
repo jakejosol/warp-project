@@ -33,13 +33,15 @@ class CrudView extends View
 		
 		$numberPattern = self::NUMBER_PATTERN;
 		
-		static::AddPattern("/{$root}\/{$createPath}$/", function() use ($layout, $path){
+		static::AddPattern("/{$root}\/{$createPath}$/", function() use ($layout, $path)
+		{
 						
 			$viewData = new ViewData();
 			
 			return static::GetViewFile($layout, $path, self::PAGE_FILE, self::CREATE_FILE, $viewData);
 		});
-		static::AddPattern("/{$root}\/{$readPath}\/{$numberPattern}$/", function() use ($layout, $path){
+		static::AddPattern("/{$root}\/{$readPath}\/{$numberPattern}$/", function() use ($layout, $path)
+		{
 			
 			$key = Router::GetURLElementAt(3);
 			
@@ -52,7 +54,8 @@ class CrudView extends View
 						
 			return static::GetViewFile($layout, $path, self::PAGE_FILE, self::READ_FILE, $viewData);
 		});
-		static::AddPattern("/{$root}\/{$updatePath}\/{$numberPattern}$/", function() use ($layout, $path){
+		static::AddPattern("/{$root}\/{$updatePath}\/{$numberPattern}$/", function() use ($layout, $path)
+		{
 		 
 			$key = Router::GetURLElementAt(3);
 			
@@ -65,7 +68,8 @@ class CrudView extends View
 						
 			return static::GetViewFile($layout, $path, self::PAGE_FILE, self::UPDATE_FILE, $viewData);
 		});
-		static::AddPattern("/{$root}\/{$deletePath}\/{$numberPattern}$/", function() use ($layout, $path){
+		static::AddPattern("/{$root}\/{$deletePath}\/{$numberPattern}$/", function() use ($layout, $path)
+		{
 					 
 			$key = Router::GetURLElementAt(3);
 			

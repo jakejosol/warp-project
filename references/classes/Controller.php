@@ -38,7 +38,8 @@ class Controller
 		if(!static::$patterns) static::$patterns = new PatternList();
 		
 		static::$patterns
-			->AddPattern("/api\/{$controllerPath}\/view$/", function(){
+			->AddPattern("/api\/{$controllerPath}\/view$/", function()
+			{
 				$query = static::GetModel()->GetQuery();
 				$query->OrderByDescending(static::GetModel()->GetKey());
 				$results = $query->Find();
@@ -60,7 +61,8 @@ class Controller
 				
 				return json_encode($results);			
 			})
-			->AddPattern("/api\/{$controllerPath}\/view\/\d/", function() use ($url){
+			->AddPattern("/api\/{$controllerPath}\/view\/\d/", function() use ($url)
+			{
 				
 				$listUrl = explode("/", $url);
 				$model = static::GetModel();
@@ -71,7 +73,8 @@ class Controller
 				foreach($model->GetValues() as $key => $value) $result[$key] = $value;
 				return json_encode($result);				
 			})
-			->SetDefault(function(){			
+			->SetDefault(function()
+			{			
 				return null;
 			});
 		

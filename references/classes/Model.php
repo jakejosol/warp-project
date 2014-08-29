@@ -12,6 +12,7 @@ class Model
 	protected static $key;
 	protected static $fields = array();
 	protected $values = array();
+	protected $scopes = array();
 	
 	/**
 	 * Class construct
@@ -19,6 +20,7 @@ class Model
 	 */
 	public function __construct($key=null)
 	{
+		static::initialize();
 		foreach(static::$fields as $field => $value) $this->values[$field] = null;
 		static::SetKeyValue($key);
 	}
@@ -26,9 +28,7 @@ class Model
 	/**
 	 * Model initializer
 	 */
-	protected function initialize()
-	{
-	}
+	protected static function initialize() {}
 	
 	/**
 	 * Getter
@@ -130,12 +130,27 @@ class Model
 		return $this->values;
 	}
 	
-	public static function GetQuery()
-	{
+	public static function GetQuery($scope=null)
+	{		
 		$query =  new Query(static::GetSource());
 		foreach(static::$fields as $field => $details) 
 			if($details["type"] != FieldType::RELATION)
 				$query->IncludeField($field);
+
+		if(is_array($scope))
+		{
+			foreach($scope as $scopeItem)
+			{
+				$scopeAction = static::$scopes[$scopeItem];
+				$query = $scopeAction($query);
+			}
+		}
+		else if ($scope)
+		{
+			$scopeAction = static::$scopes[$scope];
+			$query = $scopeAction($query);
+		}
+		
 		return $query;
 	}
 	
@@ -195,6 +210,44 @@ class Model
 		$command->SetType("EDIT");
 		$command->BindParameter("deletedAt", date("Y-m-d h:i:s"), null);
 		$command->Execute();
+	}
+	
+	public static function Has($field)
+	{
+		static::$fields[$field] = array();
+		$fieldObject = new Field(get_called_class(), $field);
+		return $fieldObject;
+	}
+	
+	public static function HasMany($model, $key=null)
+	{
+		static::Has($field)
+			->Relation($model, $key);
+		return $fieldObject;
+	}
+	
+	public static function BelongsTo($model, $key=null)
+	{
+		static::Has($field)
+			->Pointer($model, $key);
+		return $fieldObject;
+	}
+	
+	public static function Translates($model, $key=null)
+	{
+		static::Has($field)
+			->Translate($model, $key);
+		return $fieldObject;
+	}
+	
+	public static function SetOption($field, $option, $value)
+	{
+		static::$fields[$field][$option] = $value;
+	}
+	
+	public static function Scope($name, $action)
+	{
+		static::$scopes[$name] = $action;
 	}
 }
 

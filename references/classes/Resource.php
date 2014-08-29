@@ -17,12 +17,16 @@ class Resource
 	
 	public static function ImportStyle($name)
 	{
-		static::setResource($name, "<link rel='stylesheet' href='/resources/styles/{$name}'>");
+		$path = Application::GetInstance()->GetPath();
+		if($path) $path = "/".$path;
+		static::setResource($name, "<link rel='stylesheet' href='{$path}/resources/styles/{$name}'>");
 	}
 	
 	public static function ImportScript($name)
 	{
-		static::setResource($name,"<script src='/resources/scripts/{$name}'></script>");
+		$path = Application::GetInstance()->GetPath();
+		if($path) $path = "/".$path;
+		static::setResource($name,"<script src='{$path}/resources/scripts/{$name}'></script>");
 	}
 	
 	public static function Render($name)

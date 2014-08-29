@@ -14,7 +14,6 @@ class Application
 	protected $description;
 	protected $keywords;
 	protected $debugMode;
-	protected $path;
 	const REFERENCE_MANAGER = "references/ReferenceManager.php";
 	const RESOURCE_MANAGER = "resources/ResourceManager.php";
 	
@@ -34,13 +33,13 @@ class Application
 	
 	public function SetPath($path)
 	{
-		$this->path = $path;
+		Router::SetPath($path);
 		return $this;
 	}
 	
 	public function GetPath()
 	{
-		return $this->path;
+		return Router::GetPath();
 	}
 	
 	public function SetTitle($title)
