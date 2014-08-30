@@ -14,17 +14,23 @@ class Controller
 	
 	public static function GetModel()
 	{
-		return new static::$model();
+		$modelName = static::$model;
+		if(!$modelName) $modelName = str_replace("Controller", "Model", get_called_class());
+		return new $modelName();
 	}
 	
 	public static function GetClass()
 	{
-		return static::$model;
+		$modelName = static::$model;
+		if(!$modelName) $modelName = str_replace("Controller", "Model", get_called_class());
+		return $modelName;
 	}
 	
 	public static function GetView()
 	{
-		return new static::$view();
+		$viewName = static::$view;
+		if(!$viewName) $viewName = str_replace("Controller", "View", get_called_class());
+		return new $viewName();
 	}
 	
 	public function IndexAction($url, $parameters)

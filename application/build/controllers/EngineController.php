@@ -6,9 +6,6 @@
  * @description Engine controller
  */
  
-class EngineController extends Controller
-{
-	protected static $model = "EngineModel";
-}
+class EngineController extends Controller {}
 
 ?>
