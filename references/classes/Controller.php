@@ -63,19 +63,22 @@ class Controller
 						$model->SetKeyValue($result[static::GetModel()->GetKey()]);
 						
 						$results[$key][$itemRelation] = $model->GetRelation($itemRelation)->Find();
-					}	
+					}
 
 				return json_encode($results);			
 			})
 			->AddPattern("/^\/api\/{$controllerPath}\/view\/\d/", function() use ($url)
 			{
-				$listUrl = explode("/", $url);
+				$key = Router::GetURLElementAt(3);
 				$model = static::GetModel();
-				$model->SetKeyValue($listUrl[2]);
+				$model->SetKeyValue($key);
 				$model->Fetch();
 				$result = array();
 				
-				foreach($model->GetValues() as $key => $value) $result[$key] = $value;
+				foreach($model->GetValues() as $key => $value) 
+					if(!$model->GetFieldGuarded($key) && !$model->GetFieldHidden($key))
+						$result[$key] = $value;
+
 				return json_encode($result);				
 			})
 			->SetDefault(function()

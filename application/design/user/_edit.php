@@ -6,7 +6,7 @@
 	->AddChild(HorizontalRule::Create())
 	->AddChild(
 		LinkButton::Create("link-back")
-		->SetLink("/user/view/{$data->Model->USERID}")
+		->SetLink("user/view/{$data->Model->GetKeyValue()}")
 		->SetButtonType(ButtonType::BTN_PRIMARY)
 		->SetButtonSize(ControlSize::LARGE)
 		->SetText("Back")

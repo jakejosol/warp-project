@@ -84,6 +84,14 @@ class Field
 
 		return $this;
 	}
+
+	public function Hidden()
+	{
+		$modelName = $this->model;
+		$modelName::SetOption($this->name, "hidden", true);
+
+		return $this;
+	}
 	
 	public function Lookup()
 	{
@@ -172,7 +180,8 @@ class Field
 	public function Password()
 	{
 		$this->Type(FieldType::PASSWORD);
-		$this->Input(InputType::PASSWORD);	
+		$this->Input(InputType::PASSWORD);
+		$this->Hidden();
 		return $this;
 	}
 

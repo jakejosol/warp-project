@@ -77,6 +77,11 @@ class Model
 	{
 		return static::$fields[$name]["guarded"];
 	}
+
+	public function GetFieldHidden($name)
+	{
+		return static::$fields[$name]["hidden"];
+	}
 	
 	/**
 	 * Setter
@@ -168,7 +173,7 @@ class Model
 	{		
 		$query =  new Query(static::GetSource());
 		foreach(static::$fields as $field => $details) 
-			if($details["type"] != FieldType::RELATION)
+			if(!$details["guarded"] && !$details["hidden"])
 				$query->IncludeField($field);
 
 		$query->WhereIsNull(SystemField::DELETED_AT);
@@ -188,6 +193,9 @@ class Model
 	{
 		$query = static::GetQuery();
 		$query->WhereEqualTo(static::GetKey(), static::GetKeyValue());
+		foreach(static::$fields as $field => $details) 
+			if(!$details["guarded"] && !$details["hidden"])
+				$query->IncludeField($field);
 		
 		$result = $query->First();
 

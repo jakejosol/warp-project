@@ -14,24 +14,42 @@ class Resource
 	{
 		static::$resources[$name] = $resource;
 	}
-	
-	public static function ImportStyle($name)
+
+	public static function Local($resource)
 	{
 		$path = Application::GetInstance()->GetPath();
-		if($path) $path = "/".$path;
-		static::setResource($name, "<link rel='stylesheet' href='{$path}/resources/styles/{$name}'>");
+		if($path) $path = "/".$path."/";
+		else $path = "";
+
+		return $path.$resource;
 	}
 	
-	public static function ImportScript($name)
+	public static function ImportStyle($name, $external=false)
 	{
-		$path = Application::GetInstance()->GetPath();
-		if($path) $path = "/".$path;
-		static::setResource($name,"<script src='{$path}/resources/scripts/{$name}'></script>");
+		$path = static::Local("resources/styles/{$name}");
+		if($external) $path = "/resources/styles/{$name}";
+		static::setResource($name, "<link rel='stylesheet' href='{$path}'>");
 	}
 	
-	public static function Render($name)
+	public static function ImportScript($name, $external=false)
 	{
-		if($name) return static::$resources[$name];
+		$path = static::Local("resources/scripts/{$name}");		
+		if($external) $path = "/resources/styles/{$name}";
+		static::setResource($name,"<script src='{$path}'></script>");
+	}
+	
+	public static function Render()
+	{
+		$list = func_get_args();
+		$resources = array();
+
+		if($list)
+		{
+			foreach($list as $name) 
+				$resources[] = static::$resources($name);
+
+			return implode("", $resources);
+		}
 		else return implode("", static::$resources);
 	}
 }

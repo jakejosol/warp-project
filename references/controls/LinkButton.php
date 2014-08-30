@@ -13,7 +13,9 @@ class LinkButton extends Button
 	
 	public function SetLink($link)
 	{
-		$this->SetProperty("href", $link);
+		$path = Application::GetInstance()->GetPath();
+		if($path) $path = "/" . $path . "/";
+		$this->SetProperty("href", $path.$link);
 		return $this;
 	}
 }

@@ -5,4 +5,8 @@
 	</div>				
 <?php endforeach; ?>
 <hr>
-<a href="/user/edit/<?=$data->Model->USERID?>" class="btn btn-primary btn-lg">Edit</a>
+<?=LinkButton::Create()
+	->SetLink("user/edit/{$data->Model->GetKeyValue()}")
+	->SetText("Edit")
+	->AddClass("btn-lg btn-primary")
+	->Render()?>
