@@ -12,7 +12,7 @@ class Model
 	protected static $key;
 	protected static $fields = array();
 	protected static $scopes = array();
-	protected static $systemFields = true;
+	protected static $timestamps = true;
 	protected $values = array();
 	
 	/**
@@ -22,7 +22,7 @@ class Model
 	public function __construct($key=null)
 	{
 		static::build();
-		if(static::$systemFields) static::addSystemFields();
+		if(static::$timestamps) static::addTimestamps();
 		foreach(static::$fields as $field => $value) $this->values[$field] = null;
 		static::SetKeyValue($key);
 	}
@@ -32,7 +32,7 @@ class Model
 	 */
 	protected static function build() {}
 	
-	protected static function addSystemFields()
+	protected static function addTimestamps()
 	{
 		static::Has(SystemField::CREATED_AT)->DateTime()->Guarded();
 		static::Has(SystemField::UPDATED_AT)->DateTime()->Guarded();
@@ -171,6 +171,8 @@ class Model
 			if($details["type"] != FieldType::RELATION)
 				$query->IncludeField($field);
 
+		$query->WhereIsNull(SystemField::DELETED_AT);
+
 		$scopes = func_get_args();		
 				
 		foreach($scopes as $scope)
@@ -188,7 +190,7 @@ class Model
 		$query->WhereEqualTo(static::GetKey(), static::GetKeyValue());
 		
 		$result = $query->First();
-				
+
 		if($result) foreach($result as $key => $item) $this->values[$key] = $item;
 		
 		return $result;
@@ -249,6 +251,16 @@ class Model
 		$command->BindParameter(SystemField::DELETED_AT, date("Y-m-d H:i:s"), null);
 		$command->Execute();
 	}
+
+	public function Restore()
+	{
+		// Restore only works on tables with "deletedAt" column.
+		$command = new CommandQuery(static::$GetSource(), static::GetKey());
+		$command->WhereEqualTo(static::GetKey() ,static::GetKeyValue());
+		$command->SetType(CommandType::EDIT);
+		$command->BindParameter(SystemField::DELETED_AT, null, null);
+		$command->Execute();
+	}
 	
 	public static function Has($field)
 	{
@@ -259,6 +271,7 @@ class Model
 	
 	public static function HasMany($model, $key=null)
 	{
+		if(!$key) $key = $model."ID";
 		static::Has($field)
 			->Relation($model, $key);
 		return $fieldObject;
@@ -266,13 +279,22 @@ class Model
 	
 	public static function BelongsTo($model, $key=null)
 	{
+		if(!$key) $key = $model."ID";
 		static::Has($field)
 			->Pointer($model, $key);
+		return $fieldObject;
+	}
+
+	public static function BelongsToMany($model, $join=null)
+	{
+		static::Has($field)
+			->MultiPointer($model, $join);
 		return $fieldObject;
 	}
 	
 	public static function Translates($model, $key=null)
 	{
+		if(!$key) $key = $model;
 		static::Has($field)
 			->Translate($model, $key);
 		return $fieldObject;

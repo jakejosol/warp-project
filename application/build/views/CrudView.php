@@ -43,7 +43,7 @@ class CrudView extends View
 		static::AddPattern("/{$root}\/{$readPath}\/{$numberPattern}$/", function() use ($layout, $path)
 		{
 			
-			$key = Router::GetURLElementAt(3);
+			$key = Router::GetURLElementAt(2);
 			
 			$model = new static::$model();
 			$model->SetKeyValue($key);
@@ -57,7 +57,7 @@ class CrudView extends View
 		static::AddPattern("/{$root}\/{$updatePath}\/{$numberPattern}$/", function() use ($layout, $path)
 		{
 		 
-			$key = Router::GetURLElementAt(3);
+			$key = Router::GetURLElementAt(2);
 			
 			$model = new static::$model();
 			$model->SetKeyValue($key);
@@ -71,7 +71,7 @@ class CrudView extends View
 		static::AddPattern("/{$root}\/{$deletePath}\/{$numberPattern}$/", function() use ($layout, $path)
 		{
 					 
-			$key = Router::GetURLElementAt(3);
+			$key = Router::GetURLElementAt(2);
 			
 			$model = new static::$model();
 			$model->SetKeyValue($key);

@@ -12,12 +12,7 @@ class DevConfig extends Configuration implements IConfiguration
 	{
 		$this->SetTimezone("UTC");
 		$this->SetDebugMode(DebugMode::DEVELOPMENT);
-		$this->AddDatabase("main", new DatabaseConfiguration(
-											DatabaseVendor::MYSQL,
-											"127.0.0.1",
-											"root",
-											"",
-											"mcsrxdev"));
+		$this->AddDatabase("main", new DatabaseConfiguration(DatabaseVendor::MYSQL, "127.0.0.1", "root", "", "mcsrxdev"));
 		$this->SetDatabase("main");
 	}
 }

@@ -113,6 +113,16 @@ class Field
 		
 		return $this;
 	}
+
+	public function MultiPointer($model, $join=null)
+	{
+		$modelName = $this->model;
+		$modelName::SetOption($this->name, "multipointer", $model . "Model");
+		if($join) $modelName::SetOption($this->name, "join", $join);				
+		$this->Guarded();
+		
+		return $this;
+	}
 	
 	public function Translate($model, $key)
 	{

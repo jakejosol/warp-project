@@ -236,6 +236,12 @@
 					$items = "'".implode("','", $listItems)."'";
 					$clauseItem = "{$clause["field"]} {$clause["type"]} ({$items})";
 				break;
+
+				case static::$WHERE_TYPE["IS_NULL"]:
+				case static::$WHERE_TYPE["IS_NOT_NULL"]:
+					$clauseItem = "{$clause["field"]} {$clause["type"]}";
+					$counterParameters++;
+				break;
 				
 				default:
 					$clauseItem = "{$clause["field"]} {$clause["type"]} :{$uniqueBinding}{$counterParameters}";
