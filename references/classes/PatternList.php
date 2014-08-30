@@ -9,6 +9,7 @@
 class PatternList
 {
 	protected $patterns = array();
+	protected $aliases = array();
 	protected $match;
 		
 	public function AddPattern($pattern, $action)
@@ -20,10 +21,10 @@ class PatternList
 			"pattern" => $pattern,
 			"action" => $action
 		);
-		
+
 		return $this;
 	}
-	
+
 	public function SetDefault($action)
 	{
 		if(count($this->match) == 0)

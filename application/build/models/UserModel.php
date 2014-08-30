@@ -13,26 +13,26 @@ class UserModel extends Model
 
 	protected static function build()
 	{
-		self::Has("objectID")
-			->Label("ID")->Increment();
+		self::Has("objectID")->Label("ID")
+			->Increment();
 		
-		self::Has("apiKey")
-			->Label("API Key")->String(30);
+		self::Has("apiKey")->Label("API Key")
+			->String(30);
 		
-		self::Has("username")
-			->Label("Username")->String(30);
+		self::Has("username")->Label("Username")
+			->String(30);
 		
-		self::Has("password")
-			->Label("Password")->Password();
+		self::Has("password")->Label("Password")
+			->Password();
 		
-		self::Has("firstName")
-			->Label("First Name")->String(50);
+		self::Has("firstName")->Label("First Name")
+			->String(50);
 		
-		self::Has("lastName")
-			->Label("Last Name")->String(50);
+		self::Has("lastName")->Label("Last Name")
+			->String(50);
 		
-		self::Has("email")
-			->Label("Email")->Input(InputType::EMAIL);
+		self::Has("email")->Label("Email")
+			->Input(InputType::EMAIL);
 
 		self::Scope("apiUsers", function($query)
 		{
