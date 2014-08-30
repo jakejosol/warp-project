@@ -11,19 +11,20 @@ class UserModel extends Model
 	protected static $source = "_User";
 	protected static $key = "objectID";
 
-	protected static function initialize()
+	protected static function build()
 	{
-		self::Has("objectID")->Label("ID")->Type(FieldType::INTEGER)->Input(InputType::DISPLAY);
-		self::Has("apiKey")->Label("API Key");
-		self::Has("username")->Label("Username");
-		self::Has("password")->Label("Password")->Type(FieldType::PASSWORD);
-		self::Has("firstName")->Label("First Name");
-		self::Has("lastName")->Label("Last Name");
+		self::Has("objectID")->Label("ID")->Increment();
+		self::Has("apiKey")->Label("API Key")->String(30);
+		self::Has("username")->Label("Username")->String(30);
+		self::Has("password")->Label("Password")->Password();
+		self::Has("firstName")->Label("First Name")->String(50);
+		self::Has("lastName")->Label("Last Name")->String(50);
 		self::Has("email")->Label("Email")->Input(InputType::EMAIL);
 
 		self::Scope("apiUsers", function($query)
 		{
 			$query->WhereIsNotNull("apiKey");
+			return $query;
 		});
 	}
 }

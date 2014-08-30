@@ -10,44 +10,17 @@ class EngineModel extends Model
 {
 	protected static $source = "_Engine";
 	protected static $key = "objectID";
-	protected static $fields = array(
-		"objectID" => array(
-			"label" => "ID",
-			"type" => FieldType::INTEGER,
-			"increment" => true,
-			"input" => InputType::DISPLAY
-		),
-		"ownerID" => array(
-			"label" => "Owner",
-			"type" => FieldType::INTEGER,
-			"input" => InputType::DISPLAY
-		),
-		"uniqueID" => array(
-			"label" => "Unique ID",
-			"type" => FieldType::STRING,
-			"input" => InputType::DISPLAY
-		),
-		"processInstance" => array(
-			"label" => "Process Instance",
-			"type" => FieldType::INTEGER,
-			"input" => InputType::DISPLAY
-		),
-		"title" => array(
-			"label" => "Title",
-			"type" => FieldType::STRING,
-			"input" => InputType::DISPLAY
-		),
-		"type" => array(
-			"label" => "Type",
-			"type" => FieldType::STRING,
-			"input" => InputType::DISPLAY
-		),		
-		"status" => array(
-			"label" => "Status",
-			"type" => FieldType::STRING,
-			"input" => InputType::TEXT
-		)
- 	);
+
+	protected static function build()
+	{
+		self::Has("objectID")->Label("ID")->Increment();		
+		self::BelongsTo("User", "ownerID")->Label("Owner");
+		self::Has("uniqueID")->Label("Unique ID")->Unique();
+		self::Has("processInstance")->Label("Process Instance")->Integer();		
+		self::Has("title")->Label("Title")->String(30);
+		self::Has("type")->Label("Type")->String(30);
+		self::Has("status")->Label("Status")->Lookup("queued","processing","succeeded","failed","cancelled");
+	}
 }
 
 ?>

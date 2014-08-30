@@ -12,35 +12,36 @@ class Model
 	protected static $key;
 	protected static $fields = array();
 	protected static $scopes = array();
+	protected static $systemFields = true;
 	protected $values = array();
 	
 	/**
 	 * Class construct
-	 * @params string key
+	 * @param string key
 	 */
 	public function __construct($key=null)
 	{
-		static::initialize();
-		static::addSystemFields();
+		static::build();
+		if(static::$systemFields) static::addSystemFields();
 		foreach(static::$fields as $field => $value) $this->values[$field] = null;
 		static::SetKeyValue($key);
 	}
 	
 	/**
-	 * Model initializer
+	 * Model builder
 	 */
-	protected static function initialize() {}
+	protected static function build() {}
 	
 	protected static function addSystemFields()
 	{
-		static::Has(SystemField::CREATED_AT)->Type(FieldType::DATETIME)->Guarded();
-		static::Has(SystemField::UPDATED_AT)->Type(FieldType::DATETIME)->Guarded();
-		static::Has(SystemField::DELETED_AT)->Type(FieldType::DATETIME)->Guarded();
+		static::Has(SystemField::CREATED_AT)->DateTime()->Guarded();
+		static::Has(SystemField::UPDATED_AT)->DateTime()->Guarded();
+		static::Has(SystemField::DELETED_AT)->DateTime()->Guarded();
 	}
 	
 	/**
 	 * Getter
-	 * @params string name
+	 * @param string name
 	 * @return string value
 	 */
 	public function __get($name)
@@ -79,7 +80,7 @@ class Model
 	
 	/**
 	 * Setter
-	 * @params string name, string value
+	 * @param string name, string value
 	 */
 	public function __set($name,$value)
 	{
@@ -212,16 +213,15 @@ class Model
 		
 		foreach(static::$fields as $field => $details)
 		{
-			if(!$this->GetFieldGuarded($field))
-				$command->BindParameter($field, $this->values[$field], $details["type"]);
-			else
+			switch($this->GetFieldType[$field])
 			{
-				switch($this->GetFieldType[$field])
-				{
-					case FieldType::POINTER:
-						$command->BindParameter($field, $this->values[$field]->GetKeyValue(), $details["type"]);
-					break;
-				}
+				case FieldType::POINTER:
+					$command->BindParameter($field, $this->values[$field]->GetKeyValue(), $details["type"]);
+				break;
+
+				default:
+					$command->BindParameter($field, $this->values[$field], $details["type"]);
+				break;
 			}
 		}
 

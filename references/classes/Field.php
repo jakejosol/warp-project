@@ -22,6 +22,7 @@ class Field
 		$modelName = $this->model;
 		$modelName::SetOption($this->name, "increment", $value);
 		$this->Guarded();
+		$this->Integer();
 		
 		return $this;
 	}
@@ -84,8 +85,9 @@ class Field
 		return $this;
 	}
 	
-	public function Lookup($list)
+	public function Lookup()
 	{
+		$list = func_get_args();
 		$modelName = $this->model;
 		$modelName::SetOption($this->name, "lookup", $list);
 		
@@ -119,6 +121,65 @@ class Field
 		$modelName::SetOption($this->name, "key", $key);
 		$this->Guarded();
 		
+		return $this;
+	}
+
+	public function Unique()
+	{
+		$modelName = $this->model;
+		$modelName::SetOption($this->name, "unique", true);
+		
+		return $this;
+	}
+
+	public function Integer()
+	{
+		$this->Type(FieldType::INTEGER);
+		$this->Input(InputType::INTEGER);		
+		return $this;
+	}
+
+	public function Float()
+	{
+		$this->Type(FieldType::FLOAT);
+		$this->Input(InputType::FLOAT);		
+		return $this;
+	}
+
+	public function DateTime()
+	{
+		$this->Type(FieldType::DATETIME);
+		return $this;
+	}
+
+	public function Date()
+	{
+		$this->Type(FieldType::DATE);		
+		$this->Input(InputType::DATE);
+		return $this;
+	}
+
+	public function Password()
+	{
+		$this->Type(FieldType::PASSWORD);
+		$this->Input(InputType::PASSWORD);	
+		return $this;
+	}
+
+	public function String($size)
+	{
+		$this->Type(FieldType::STRING);
+		$this->Input(InputType::TEXT);	
+		$this->Size($size);
+
+		return $this;
+	}
+
+	public function Email($size)
+	{
+		$this->Input(InputType::EMAIL);
+		$this->Size($size);
+
 		return $this;
 	}
 }
