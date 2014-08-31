@@ -15,7 +15,7 @@ class UserModel extends Model
 	{
 		self::Has("objectID")->Label("ID")
 			->Increment();
-		
+		 
 		self::Has("apiKey")->Label("API Key")
 			->String(30);
 		
