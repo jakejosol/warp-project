@@ -11,11 +11,10 @@ class LinkButton extends Button
 	protected $type = "a";
 	protected static $name = "LinkButton";
 	
-	public function SetLink($link)
+	public function SetLink($link, $external=false)
 	{
-		$path = Application::GetInstance()->GetPath();
-		if($path) $path = "/" . $path . "/";
-		$this->SetProperty("href", $path.$link);
+		if(!$external) $link = Resource::Local($link);
+		$this->SetProperty("href", $link);
 		return $this;
 	}
 }

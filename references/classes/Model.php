@@ -176,7 +176,7 @@ class Model
 			if(!$details["guarded"] && !$details["hidden"])
 				$query->IncludeField($field);
 
-		$query->WhereIsNull(SystemField::DELETED_AT);
+		//$query->WhereIsNull(SystemField::DELETED_AT);
 
 		$scopes = func_get_args();		
 				

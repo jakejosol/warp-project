@@ -18,7 +18,16 @@ class CrudForm extends Form
 
 		foreach($model->GetValues() as $field => $value)
 		{			
-			if($model->GetFieldGuarded($field)) continue;
+			if($model->GetFieldGuarded($field)) 
+			{
+				$input = Input::Create($field)
+						->SetName($field)
+						->SetValue($value)
+						->SetInputType(InputType::HIDDEN);
+
+				$this->AddChild($input);
+				continue;
+			}
 
 			$input = Input::Create($field)
 					->SetName($field)
