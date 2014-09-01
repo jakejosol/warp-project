@@ -1,5 +1,5 @@
 <?=CrudForm::Create("form-1")
-	->SetAction("/api/user/edit")
+	->SetAction(Resource::Local("/api/user/edit"))
 	->SetMethod(FormMethod::POST)
 	->SetInputColumnSpan(9)
 	->SetModel($data->Model)

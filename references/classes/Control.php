@@ -46,7 +46,7 @@ class Control implements IElement
 	
 	public function AddClass($class)
 	{
-		$this->classes[] = $class;
+		$this->classes[] = htmlentities($class);
 		return $this;
 	}
 	
@@ -64,7 +64,7 @@ class Control implements IElement
 	
 	public function SetProperty($key, $value)
 	{
-		$this->properties[$key] = $value;
+		$this->properties[$key] = htmlentities($value);
 		return $this;
 	}
 	
@@ -117,7 +117,7 @@ class Control implements IElement
 		if(count($this->classes) == 0) $classes = "";
 		
 		$listProperties = array();
-		foreach($this->properties as $key => $value) $listProperties[] = "{$key}='{$value}'";
+		foreach($this->properties as $key => $value) $listProperties[] = "{$key}=\"{$value}\"";
 		$properties = " ".implode(" ", $listProperties);
 		
 		$listChildren = array();
