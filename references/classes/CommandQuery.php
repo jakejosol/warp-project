@@ -54,14 +54,42 @@
 			case static::$COMMAND_TYPE["ADD"]:
 				$listBindingFields = array();
 				$listBindingValues = array();
-				foreach($this->bindings as $field => $details) 
+				$listBindingRows = array();
+
+				if(!is_array($this->bindings[0]["value"]))
 				{
-					$listBindingFields[] = $field;
-					$listBindingValues[] = ":{$uniqueBinding}{$counterParameters}";
-					$listParameters[":{$uniqueBinding}{$counterParameters}"] = array("value" => $details["value"]);
-					$counterParameters++;
+					foreach($this->bindings as $field => $details) 
+					{
+						$listBindingFields[] = $field;
+						$listBindingValues[] = ":{$uniqueBinding}{$counterParameters}";
+						$listParameters[":{$uniqueBinding}{$counterParameters}"] = array("value" => $details["value"]);
+						$counterParameters++;
+					}
+
+					$bindings = "(" . implode(",", $listBindingFields) . ") VALUES (" . implode(",", $listBindingValues) . ")";
 				}
-				$bindings = "(" . implode(",", $listBindingFields) . ") VALUES (" . implode(",", $listBindingValues) . ")";
+				else
+				{
+					$rowCount = count($this->bindings[0]["value"]);
+
+					for($rowIndex = 0; $rowIndex < $rowCount; $rowIndex++)
+					{
+						$listBindingFields = array();
+						$listBindingValues = array();
+
+						foreach($this->bindings as $field => $details) 
+						{
+							$listBindingFields[] = $field;
+							$listBindingValues[] = ":{$uniqueBinding}{$counterParameters}";
+							$listParameters[":{$uniqueBinding}{$counterParameters}"] = array("value" => $details["value"][$rowIndex]);
+							$counterParameters++;
+
+							$listBindingRows[] = "(" . implode(",", $listBindingFields) . ") VALUES (" . implode(",", $listBindingValues) . ")";
+						}
+
+						$bindings = implode(",", $listBindingRows);
+					}
+				}
 			break;
 			
 			case static::$COMMAND_TYPE["EDIT"]:
@@ -93,7 +121,7 @@
 	{
 		$queryObject = $this->GetQueryObject();
 		return Database::Execute($queryObject->QueryString, $queryObject->Parameters, true);
-	}
- }
+ }	}
+
  
 ?>
