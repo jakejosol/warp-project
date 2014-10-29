@@ -6,7 +6,7 @@
  * @description Determines the references used by the app
  */
 
-require_once __DIR__."/../vendor/warp/autoload.php";
+require_once __DIR__."/../vendor/autoload.php";
 
 /****************************************
 BASE - Base reference class

@@ -4,6 +4,6 @@
 	"keywords": ["project", "warp"],
 	"license": "MIT",
 	"require": {
-		"warp/framework": "1.0.*"
+		"warp/framework": "dev-master"
 	}
 }
