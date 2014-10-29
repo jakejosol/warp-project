@@ -1,0 +1,9 @@
+{
+	"name": "warp/project",
+	"description": "The base Warp project",
+	"keywords": ["project", "warp"],
+	"license": "MIT",
+	"require": {
+		"warp/framework": "1.0.*"
+	}
+}
