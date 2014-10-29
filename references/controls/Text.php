@@ -6,6 +6,8 @@
  * @description Text
  */
 
+use Warp\Control;
+
 class Text extends Control
 {
 	protected $content;

@@ -6,6 +6,6 @@
  * @description Utility class for implementing sessions
  */
 
-class Session extends LocalSession {}
+class Session extends Warp\Session\LocalSession {}
 
 ?>

@@ -5,7 +5,13 @@
  * @author Jake Josol
  * @description User controller
  */
- 
-class UserController extends Controller {}
+
+use Warp\Utils\Traits\APIControllerTrait;
+use Warp\Utils\Traits\CrudControllerTrait;
+
+class UserController extends Controller 
+{
+	use APIControllerTrait, CrudControllerTrait;
+}
 
 ?>

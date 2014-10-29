@@ -5,7 +5,9 @@
  * @author Jake Josol
  * @description Division
  */
- 
+
+use Warp\Control;
+
 class Division extends Control
 {
 	protected $type = "div";

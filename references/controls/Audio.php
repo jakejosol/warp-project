@@ -5,7 +5,9 @@
  * @author Jake Josol
  * @description Audio
  */
- 
+
+use Warp\Control;
+
 class Audio extends Control
 {
 	protected $type = "video";

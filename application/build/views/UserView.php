@@ -5,12 +5,16 @@
  * @author Jake Josol
  * @description User view
  */
+
+use Warp\Utils\Traits\CrudViewTrait;
  
- class UserView extends CrudView
+ class UserView extends View
  {
-	 protected static $model = "UserModel";
-	 protected static $layout = "default.php";
-	 protected static $path = "user";
+ 	use CrudViewTrait;
+
+	protected static $model = "UserModel";
+	protected static $layout = "default.php";
+	protected static $path = "user";
  }
 
 ?>

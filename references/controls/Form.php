@@ -5,7 +5,9 @@
  * @author Jake Josol
  * @description Formm
  */
- 
+
+use Warp\Control;
+
 class Form extends Control
 {
 	protected $type = "form";

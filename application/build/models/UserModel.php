@@ -6,37 +6,26 @@
  * @description User model
  */
  
+use Warp\Enumerations\SystemField;
+
 class UserModel extends Model
 {
 	protected static $source = "_User";
-	protected static $key = "objectID";
+	protected static $key = "id";
 
 	protected static function build()
 	{
-		self::Has("objectID")->Label("ID")
-			->Increment();
-		 
-		self::Has("apiKey")->Label("API Key")
-			->String(30);
-		
-		self::Has("username")->Label("Username")
-			->String(30);
-		
-		self::Has("password")->Label("Password")
-			->Password();
-		
-		self::Has("firstName")->Label("First Name")
-			->String(50);
-		
-		self::Has("lastName")->Label("Last Name")
-			->String(50);
-		
-		self::Has("email")->Label("Email")
-			->Input(InputType::EMAIL);
+		self::Has(SystemField::ID)->Increment();
+		self::Has("secretKey")->String(30);		
+		self::Has("username")->String(30);		
+		self::Has("password")->Password();		
+		self::Has("firstName")->String(50);		
+		self::Has("lastName")->String(50);		
+		self::Has("email")->Input(InputType::EMAIL);
 
 		self::Scope("apiUsers", function($query)
 		{
-			$query->WhereIsNotNull("apiKey");
+			$query->WhereIsNotNull("secretKey");
 			return $query;
 		});
 	}

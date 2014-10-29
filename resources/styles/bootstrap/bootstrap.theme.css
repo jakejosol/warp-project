@@ -431,3 +431,37 @@ input[type=display]:focus
 {
   padding-right: 20px;
 }
+
+.modal
+{
+outline:none;
+}
+
+@media screen and (min-width: 768px) 
+{
+  .modal-dialog
+  {
+    width:85%;
+  }
+}
+
+.modal-content
+{
+box-shadow:none;
+-webkit-box-shadow:none;
+-moz-box-shadow:none;
+background:#fff;
+font-size:12pt;
+}
+
+.modal-header, .modal-body
+{
+padding:40px 30px 20px 30px;
+border-bottom:0;
+}
+
+.modal-header
+{
+font-weight:bold;
+font-size:32pt;
+}

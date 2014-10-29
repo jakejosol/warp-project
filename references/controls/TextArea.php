@@ -5,6 +5,8 @@
  * @author Jake Josol
  * @description TextArea
  */
+
+use Warp\Controls\Division;
  
 class TextArea extends Division
 {

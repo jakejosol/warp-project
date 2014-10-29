@@ -5,7 +5,7 @@
  * @author Jake Josol
  * @description Label
  */
- 
+
 class Label extends Division
 {
 	const FOR_PROPERTY = "for";

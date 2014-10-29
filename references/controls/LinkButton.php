@@ -5,7 +5,9 @@
  * @author Jake Josol
  * @description Button
  */
- 
+
+use Warp\Resource;
+
 class LinkButton extends Button
 {
 	protected $type = "a";

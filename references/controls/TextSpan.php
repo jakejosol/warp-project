@@ -5,7 +5,9 @@
  * @author Jake Josol
  * @description Text Span
  */
- 
+
+use Warp\Controls\Division;
+
 class TextSpan extends Division
 {
 	protected $type = "span";

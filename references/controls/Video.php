@@ -5,7 +5,7 @@
  * @author Jake Josol
  * @description Video
  */
- 
+
 class Video extends Audio
 {
 	protected $type = "video";

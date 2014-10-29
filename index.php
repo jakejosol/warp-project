@@ -1,31 +1,27 @@
 <?php
 
-/*
- * WARP (Web Apps Ready-to-Publish) Framework
- * @url http://bitbucket.org/jakejosol/warp.git
+/**
+ * Warp Framework
+ * @author Jake Josol
+ * @copyright MIT License
  */
 
-require_once "references/classes/Application.php";
+require_once "references/references.php";
 
 /****************************************
-INITIALIZE THE APPLICATION
+INITIALIZE - Prepare the application
 ****************************************/
-Application::Initialize("warp")
-	->SetConfiguration(new ProdConfig);
-	
-// Set Application details
-Application::GetInstance()
-	->SetTitle("WARP")
-	->SetSubtitle("Web App Ready-to-Publish")
+Application::Initialize()
+	->SetPath("warp")
+	->SetConfiguration(new DevConfig)
+	->SetTitle("Warp")
+	->SetSubtitle("The Warp Framework")
 	->SetDescription("A PHP framework for creating API-based, Design-centered and Controls-extensible applications")
 	->SetKeywords(array("API-based", "Design-centered", "Controls-extensible"));
 
-// Set Application Pages
-Application::GetInstance()
-	->SetHomePage("Home")
-	->AddPage("user","User");
+/****************************************
+START - Start the application
+****************************************/
+Application::GetInstance()->Start();
 
-// Start the application	
-Application::GetInstance()
-	->Start();
 ?>

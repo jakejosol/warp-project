@@ -5,7 +5,7 @@
  * @author Jake Josol
  * @description Button
  */
- 
+
 class Button extends Division
 {
 	const BUTTON_PREFIX = "btn-";

@@ -6,6 +6,8 @@
  * @description Horizontal rule
  */
 
+use Warp\Control;
+
 class HorizontalRule extends Control
 {
 	protected $type = "hr";

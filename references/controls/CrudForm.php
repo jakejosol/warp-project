@@ -5,7 +5,9 @@
  * @author Jake Josol
  * @description Crud Formm
  */
- 
+
+use Warp\Enumerations\InputType;
+
 class CrudForm extends Form
 {
 	protected static $name = "CRUDForm";
@@ -20,24 +22,24 @@ class CrudForm extends Form
 		{			
 			if($model->GetFieldGuarded($field)) 
 			{
-				$input = Input::Create($field)
+				$input = InputBox::Create($field)
 						->SetName($field)
 						->SetValue($value)
-						->SetInputType(InputType::HIDDEN);
+						->SetInputType(InputType::Hidden);
 
 				$this->AddChild($input);
 				continue;
 			}
 
-			$input = Input::Create($field)
+			$input = InputBox::Create($field)
 					->SetName($field)
 					->SetValue($value)
 					->SetInputType($model->GetFieldInput($field))
 					->SetPlaceholder($model->GetFieldLabel($field));
-			
+
 			switch($model->GetFieldInput($field))
 			{
-				case InputType::SELECT:
+				case InputType::Select:
 					$input = Select::Create($field)
 							->SetName($field);
 						
@@ -45,7 +47,7 @@ class CrudForm extends Form
 						$input->AddOption($lookupValue);
 				break;
 				
-				case InputType::TEXTAREA:
+				case InputType::Textarea:
 					$input = TextArea::Create($field)
 							->SetName($field)
 							->SetPlaceholder($model->GetFieldLabel($field));

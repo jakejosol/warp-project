@@ -5,7 +5,7 @@
  * @author Jake Josol
  * @description Alert Box
  */
- 
+
 class AlertBox extends Division
 {
 	const ALERT_PREFIX = "alert-";

@@ -5,7 +5,7 @@
  * @author Jake Josol
  * @description Option
  */
- 
+
 class Option extends Division
 {
 	protected $type = "option";
