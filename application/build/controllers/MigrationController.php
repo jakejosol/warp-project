@@ -25,11 +25,11 @@ class MigrationController extends Controller
 
 				if(!class_exists($name)) throw new Exception("The specified migration class does not exist: {$name}");
 
-				$migration = new $name;
-				$migration->Up();
-
 				$itemModel = new MigrationModel($itemMigration["id"]);
 				$itemModel->SoftDelete();
+
+				$migration = new $name;
+				$migration->Up();
 			}
 
 			return Response::Make(200, "Success", array("migrated" => $migrated))->ToJSON();
@@ -44,15 +44,15 @@ class MigrationController extends Controller
 	{
 		try
 		{
-			$migration = new migration_base;
-			$migration->Up();
-
 			$model = new MigrationModel;
 			$model->name = "base";
 			$model->type = MigrationType::Make;
 			$model->Save();
 
 			$model->SoftDelete();
+
+			$migration = new migration_base;
+			$migration->Up();
 
 			return Response::Make(200, "Success", array("installedAt" => date("Y-m-d H:i:s")))->ToJSON();
 		}
@@ -146,11 +146,11 @@ class MigrationController extends Controller
 
 			if(!class_exists($name)) throw new Exception("The specified migration class does not exist: {$name}");
 
-			$migration = new $name;
-			$migration->Down();
-
 			$itemModel = new MigrationModel($itemMigration["id"]);
 			$itemModel->Restore();
+
+			$migration = new $name;
+			$migration->Down();
 
 			return Response::Make(200, "Success", array("name" => $name))->ToJSON();
 		}
@@ -177,11 +177,11 @@ class MigrationController extends Controller
 
 				if(!class_exists($name)) throw new Exception("The specified migration class does not exist : {$name}");
 
-				$migration = new $name;
-				$migration->Down();
-
 				$itemModel = new MigrationModel($itemMigration["id"]);
 				$itemModel->Restore();
+
+				$migration = new $name;
+				$migration->Down();
 			}
 
 			return Response::Make(200, "Success", array("reset" => $reset))->ToJSON();
