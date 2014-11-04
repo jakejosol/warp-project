@@ -79,7 +79,7 @@ class MigrationController extends Controller
 			$file = new FileHandle($filename, $directory);
 			$file->WriteLine("<?php");
 			$file->WriteLine("");
-			$file->WriteLine("use Warp\\Interfaces\\IMigration;");
+			$file->WriteLine("use Warp\\Utils\\Interfaces\\IMigration;");
 			$file->WriteLine("");
 			$file->WriteLine("class migration_{$name} implements IMigration");
 			$file->WriteLine("{");
