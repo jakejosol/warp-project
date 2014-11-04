@@ -6,12 +6,13 @@
  * @description Engine model
  */
 
-use Warp\Enumerations\SystemField;
+use Warp\Utils\Enumerations\SystemField;
  
 class EngineModel extends Model
 {
 	protected static $source = "_Engine";
 	protected static $key = "id";
+	protected static $fields = array();
 
 	protected static function build()
 	{

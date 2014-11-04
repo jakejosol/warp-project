@@ -12,6 +12,7 @@ class MigrationModel extends Model
 {
 	protected static $source = "_Migration";
 	protected static $key = "id";
+	protected static $fields = array();
 
 	protected static function build()
 	{
@@ -19,16 +20,6 @@ class MigrationModel extends Model
 		self::Has("name")->String(30);		
 		self::Has("type")->String(30);
 
-		self::Scope("up", function($query)
-		{
-			$query->WhereEqualTo("type","up");
-			return $query;
-		});
-		self::Scope("down", function($query)
-		{
-			$query->WhereEqualTo("type","down");
-			return $query;
-		});
 		self::Scope("pending", function($query)
 		{
 			$query->WhereIsNull(SystemField::DeletedAt);

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,200italic,300italic,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
 		<?=Resource::Render()?>
 		<style>
 			body
 			{
 				font-family:Source Sans Pro;
-				background:#009afd;
+				background:#b90909;
 				color:#ffffff;
 			}
 			

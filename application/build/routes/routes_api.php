@@ -3,13 +3,16 @@
 /****************************************
 API ROUTES
 ****************************************/
+use Warp\Http\API;
+use Warp\Http\Response;
+
 Router::Group("api/1/alpha:class/", function(){
 
 	Router::Any("view", function($parameters)
 	{
 		return API::Request(array(
 			"class" => $parameters["class"],
-			"action" => $parameters["action"],
+			"action" => "View",
 			"parameters" => $parameters				
 		));
 	});
@@ -20,7 +23,7 @@ Router::Group("api/1/alpha:class/", function(){
 			"class" => $parameters["class"],
 			"action" => "View",
 			"parameters" => $parameters				
-		));
+		));	
 	});
 
 	Router::Post("add", function($parameters)

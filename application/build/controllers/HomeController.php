@@ -8,7 +8,7 @@
 
 class HomeController extends Controller
 {
-	public function IndexAction()
+	public function IndexAction($parameters)
 	{
 		$homeView = new HomeView;
 		return $homeView->Render();

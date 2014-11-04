@@ -10,7 +10,7 @@
 RESOURCES
 ****************************************/
 // Styles
-Resource::ImportStyle("http://fonts.googleapis.com/css?family=Source+Sans+Pro", true);
+Resource::ImportStyle("//fonts.googleapis.com/css?family=Source+Sans+Pro", true);
 Resource::ImportStyle("jquery/jquery.chosen.css");
 Resource::ImportStyle("jquery/jquery.typeahead.css");
 Resource::ImportStyle("bootstrap.css");
