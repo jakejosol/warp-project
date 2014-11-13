@@ -6,6 +6,6 @@
  * @description Class that is responsible for the entire application
  */
 
-class Application extends Warp\Core\Application {}
+class App extends Warp\Core\Application {}
 
 ?>

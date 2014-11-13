@@ -19,11 +19,8 @@ GENERAL ROUTES
 ****************************************/
 
 Router::Home("HomeController");
-
-Router::None(function()
-{
-	return NotFoundView::Make()->Render();
-});
+Router::None("NotFoundController");
+Router::Crud("user","User");
 
 /****************************************
 USER-DEFINED ROUTES
@@ -41,12 +38,6 @@ Router::Get("dashboard", function($parameters)
 	echo "Hello " . Auth::User()->username;
 }, 
 array("before" => "auth.active", "failed" => "login"));
-
-/****************************************
-CRUD ROUTES
-****************************************/
-
-Router::Crud("user","User");
 
 /****************************************
 ACCESS ROUTES

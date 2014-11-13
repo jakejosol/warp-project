@@ -11,7 +11,7 @@ use Warp\Utils\Interfaces\IConfiguration;
 use Warp\Utils\Enumerations\DebugMode;
 use Warp\Utils\Enumerations\DatabaseVendor;
 
-class ProdConfig extends Configuration implements IConfiguration
+class ProductionConfiguration extends Configuration implements IConfiguration
 {
 	public function Apply()
 	{

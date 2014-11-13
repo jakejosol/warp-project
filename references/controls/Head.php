@@ -18,7 +18,7 @@ class Head extends Control
 	public function Bootstrap()
 	{
 		$this
-		->AddChild(Title::Create()->SetText(Application::GetInstance()->GetTitle() . " - " . Application::GetInstance()->GetSubtitle()))
+		->AddChild(Title::Create()->SetText(Application::GetInstance()->GetTitle() . " - " . App::GetInstance()->GetSubtitle()))
 		->AddChild(Meta::Create()->SetProperty("http-equiv","X-UA-Compatible")->SetContent("IE=edge"))
 		->AddChild(Meta::Create()->SetName("charset")->SetContent("utf-8"))
 		->AddChild(Meta::Create()->SetName("viewport")->SetContent("width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"))

@@ -10,8 +10,7 @@ class HomeController extends Controller
 {
 	public function IndexAction($parameters)
 	{
-		$homeView = new HomeView;
-		return $homeView->Render();
+		return HomeView::Make()->Render();
 	}
 }
 

@@ -6,7 +6,7 @@ MIGRATION ROUTES - Development Mode Only
 
 use Warp\Utils\Enumerations\DebugMode;
 
-if(Application::GetInstance()->GetDebugMode() == DebugMode::Development)
+if(App::GetInstance()->DebugMode() == DebugMode::Development)
 {
 	Router::Get("migrate/install", "MigrationController@Install");
 	Router::Get("migrate/uninstall", "MigrationController@Uninstall");
