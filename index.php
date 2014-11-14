@@ -18,7 +18,7 @@ App::Meta()
 	->Keywords(array("API-based", "Design-centered", "Controls-extensible"));
 
 App::Environment()
-	->Add("localhost:811", "Dev");
+	->Add("localhost:811", "development");
 
 /****************************************
 START - Start the application
