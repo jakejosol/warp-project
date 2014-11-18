@@ -6,7 +6,7 @@
  * @description Source
  */
 
-use Warp\Control;
+use Warp\UI\Control;
  
 class Source extends Control
 {

@@ -6,7 +6,7 @@
  * @description Form group
  */
 
-use Warp\Control;
+use Warp\UI\Control;
 
 class FormGroup extends Control
 {

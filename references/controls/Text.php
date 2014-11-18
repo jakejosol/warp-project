@@ -6,7 +6,7 @@
  * @description Text
  */
 
-use Warp\Control;
+use Warp\UI\Control;
 
 class Text extends Control
 {

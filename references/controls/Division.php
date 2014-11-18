@@ -6,7 +6,7 @@
  * @description Division
  */
 
-use Warp\Control;
+use Warp\UI\Control;
 
 class Division extends Control
 {

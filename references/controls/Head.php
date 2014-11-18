@@ -6,9 +6,7 @@
  * @description Head
  */
 
-use Warp\Control;
-use Warp\Application;
-use Warp\Resource;
+use Warp\UI\Control;
 
 class Head extends Control
 {

@@ -6,7 +6,7 @@
  * @description Crud Formm
  */
 
-use Warp\Enumerations\InputType;
+use Warp\Utils\Enumerations\InputType;
 
 class CrudForm extends Form
 {

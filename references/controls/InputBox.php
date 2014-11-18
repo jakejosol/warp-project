@@ -6,7 +6,7 @@
  * @description Button
  */
 
-use Warp\Control;
+use Warp\UI\Control;
 
 class InputBox extends Control
 {

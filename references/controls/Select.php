@@ -6,11 +6,8 @@
  * @description Select
  */
 
-namespace Warp\Controls;
+use Warp\UI\Control;
 
-use Warp\Control;
-use Warp\Controls\Option;
- 
 class Select extends Control
 {
 	protected $type = "select";

@@ -6,7 +6,7 @@
  * @description Horizontal rule
  */
 
-use Warp\Control;
+use Warp\UI\Control;
 
 class HorizontalRule extends Control
 {

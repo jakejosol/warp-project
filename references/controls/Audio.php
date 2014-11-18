@@ -6,7 +6,7 @@
  * @description Audio
  */
 
-use Warp\Control;
+use Warp\UI\Control;
 
 class Audio extends Control
 {

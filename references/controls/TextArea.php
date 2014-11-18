@@ -6,8 +6,6 @@
  * @description TextArea
  */
 
-use Warp\Controls\Division;
- 
 class TextArea extends Division
 {
 	protected $type = "textarea";

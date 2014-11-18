@@ -6,7 +6,7 @@
  * @description Formm
  */
 
-use Warp\Control;
+use Warp\UI\Control;
 
 class Form extends Control
 {
