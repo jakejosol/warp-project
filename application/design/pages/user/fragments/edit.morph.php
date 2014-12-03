@@ -18,6 +18,27 @@
 		->SetText("Save")
 	)
 	->Render()?>
+
+<control:CrudForm 
+	id="form-1"
+	action="/api/user/edit"
+	method="POST"
+	inputColumnSpan="9"
+	model="Model">
+	<hr>
+	<control:LinkButton
+		id="link-backk"
+		link="user/view/{Model->GetKeyValue()}"
+		buttonType="primary"
+		buttonSize="large"
+		text="Back" />
+	<control:Button
+		id="btn-save"
+		buttonType="primary"
+		buttonSize="large"
+		text="Save" />
+</control:CrudForm>
+
 <script>
 	$(document).ready(function(){
 		$("#form-1").on("submit", function(e){

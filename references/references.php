@@ -27,6 +27,7 @@ Reference::Path("migration", 		__DIR__."/../application/build/migrations/");
 Reference::Path("route",			__DIR__."/../application/build/routes/");
 Reference::Path("layout",			__DIR__."/../application/design/layouts/");
 Reference::Path("page",				__DIR__."/../application/design/pages/");
+Reference::Path("partial",			__DIR__."/../application/design/partials/")
 Reference::Path("resource",			__DIR__."/../resources/");
 
 /****************************************

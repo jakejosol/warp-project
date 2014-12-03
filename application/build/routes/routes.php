@@ -18,8 +18,15 @@ Router::Import("migration");
 GENERAL ROUTES
 ****************************************/
 
-Router::Home("HomeController");
-Router::None("NotFoundController");
+//Router::Home("HomeController");
+//Router::None("NotFoundController");
+
+Router::Home(function()
+{
+	return View::Make()->Layout("public.morph.php")->Page("home")->Render();
+});
+
+
 Router::Crud("user","User");
 
 /****************************************

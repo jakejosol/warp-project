@@ -12,7 +12,7 @@ Router::Post("engines/alpha:name", function($parameters)
 	
 	$engine = Engine::Load($engineName);
 		
-	return ($engine) ? $engine->Run($runParams) : "Unknown engine";
+	return $engine? $engine->Run($runParams) : "Unknown engine";
 });
 
 ?>

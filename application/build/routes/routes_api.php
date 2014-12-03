@@ -4,7 +4,6 @@
 API ROUTES
 ****************************************/
 use Warp\Http\API;
-use Warp\Http\Response;
 
 Router::Group("api/1/alpha:class/", function(){
 

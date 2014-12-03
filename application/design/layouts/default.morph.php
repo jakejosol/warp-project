@@ -1,9 +1,9 @@
 <html>
-	<?=Head::Create()->Bootstrap()->Render()?>
+	<include partial="head" />
 	<body>
 		<section class="col-md-10 col-md-offset-1">
 			<article class="content">
-				<?=$data->Page->Render()?>
+				<page />
 			</article>
 		</section>
 	</body>

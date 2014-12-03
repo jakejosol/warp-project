@@ -6,12 +6,12 @@
  * @description User controller
  */
 
-use Warp\Utils\Traits\APIControllerTrait;
-use Warp\Utils\Traits\CrudControllerTrait;
+use Warp\Utils\Traits\Controller\Apified;
+use Warp\Utils\Traits\Controller\Crudified;
 
 class UserController extends Controller 
 {
-	use APIControllerTrait, CrudControllerTrait;
+	use Apified, Crudified;
 }
 
 ?>

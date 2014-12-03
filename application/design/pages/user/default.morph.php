@@ -6,5 +6,5 @@
 <hr>
 
 <div class="crud">
-	<?=$data->Fragment->Render()?>
+	<fragment />
 </div>
