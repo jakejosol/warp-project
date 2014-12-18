@@ -8,7 +8,7 @@
 
 class NotFoundController extends Controller
 {
-	public function IndexAction($parameters)
+	public function IndexAction($parameters=null)
 	{
 		return NotFoundView::Make()->Render();
 	}
