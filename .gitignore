@@ -1,3 +1,4 @@
+application/store/
 /vendor
 composer.phar
 composer.lock
