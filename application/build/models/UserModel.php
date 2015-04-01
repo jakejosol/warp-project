@@ -24,12 +24,6 @@ class UserModel extends Model
 		self::Has("firstName")->String(50);		
 		self::Has("lastName")->String(50);		
 		self::Has("email")->Input(InputType::Email);
-
-		self::Scope("apiUsers", function($query)
-		{
-			$query->WhereIsNotNull("secretKey");
-			return $query;
-		});
 	}
 }
 

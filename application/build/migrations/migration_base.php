@@ -34,19 +34,12 @@ class migration_base implements IMigration
 			->String("status")
 			->Timestamps()
 			->Create();
-
-		Schema::Table("_Engine")
-			->Unique("uniqueID")
-			->Alter();
 	}
 
 	public function Down()
 	{
-		Schema::Table("_User")
-			->Drop();
-
-		Schema::Table("_Engine")
-			->Drop();
+		Schema::Table("_User")->Drop();
+		Schema::Table("_Engine")->Drop();
 	}
 }
 

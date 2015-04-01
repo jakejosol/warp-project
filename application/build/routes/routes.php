@@ -20,7 +20,6 @@ GENERAL ROUTES
 
 Router::Home("HomeController");
 Router::None("NotFoundController");
-Router::Crud("user","User");
 
 /****************************************
 USER-DEFINED ROUTES
@@ -39,10 +38,6 @@ Router::Get("dashboard", function($parameters)
 }, 
 array("before" => "auth.active", "failed" => "login"));
 
-/****************************************
-ACCESS ROUTES
-****************************************/
-
 // Login Demo
 Router::Get("login", function()
 {
@@ -60,10 +55,11 @@ Router::Get("login", function()
 	}
 });
 
+// Logout Demo
 Router::Get("logout", function()
 {
 	Auth::LogOut();
-	Navigate::Within("hello/jack/5320101");
+	Navigate::Within("/");
 });
 
 ?>

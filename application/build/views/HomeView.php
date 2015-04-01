@@ -10,8 +10,7 @@
  {
 	 public function Render()
 	 {
-		$view = static::GetDefaultViewFile(null, "home");
-		return $view;
+		return View::Make()->Layout("public.php")->Page("home")->Render();
 	 }
  }
 
