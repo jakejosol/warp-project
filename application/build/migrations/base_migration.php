@@ -24,6 +24,19 @@ class base_migration implements IMigration
 			->Timestamps()
 			->Create();
 
+		Schema::Table("_job")
+			->ID()
+			->Text("handler")
+			->DateTime("runAt")
+			->Integer("priority")
+			->Integer("attempts")
+			->Text("lastError")
+			->DateTime("lockedAt")
+			->DateTime("failedAt")
+			->String("queue")
+			->Timestamps()
+			->Create();
+
 		Schema::Table("_engine")
 			->ID()
 			->Integer("userID")
@@ -39,6 +52,7 @@ class base_migration implements IMigration
 	public function Down()
 	{
 		Schema::Table("_user")->Drop();
+		Schema::Table("_job")->Drop();
 		Schema::Table("_engine")->Drop();
 	}
 }

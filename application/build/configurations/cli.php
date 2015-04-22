@@ -7,11 +7,10 @@
  */
  
 use Warp\Data\DatabaseConfiguration;
-use Warp\Utils\Interfaces\IConfiguration;
 use Warp\Utils\Enumerations\DebugMode;
 use Warp\Utils\Enumerations\DatabaseVendor;
 
-class CLIConfiguration extends Configuration implements IConfiguration
+class CLIConfiguration extends Configuration
 {
 	public function Apply()
 	{
@@ -21,5 +20,3 @@ class CLIConfiguration extends Configuration implements IConfiguration
 		$this->SetDatabase("main");
 	}
 }
-
-?>
