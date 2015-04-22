@@ -11,7 +11,7 @@ use Warp\Utils\Enumerations\InputType;
 
 class UserModel extends Model
 {
-	protected static $source = "_User";
+	protected static $source = "_user";
 	protected static $key = "id";
 	protected static $fields = array();
 
@@ -21,10 +21,8 @@ class UserModel extends Model
 		self::Has("secretKey")->String(30);		
 		self::Has("username")->String(30);		
 		self::Has("password")->Password();		
-		self::Has("firstName")->String(50);		
-		self::Has("lastName")->String(50);		
+		self::Has("firstName")->String(50);
+		self::Has("lastName")->String(50);
 		self::Has("email")->Input(InputType::Email);
 	}
 }
-
-?>

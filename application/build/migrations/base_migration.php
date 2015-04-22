@@ -8,11 +8,11 @@
 
 use Warp\Utils\Interfaces\IMigration;
 
-class migration_base implements IMigration
+class base_migration implements IMigration
 {
 	public function Up()
 	{
-		Schema::Table("_User")
+		Schema::Table("_user")
 			->ID()
 			->String("secretKey", 100)
 			->String("username")
@@ -24,7 +24,7 @@ class migration_base implements IMigration
 			->Timestamps()
 			->Create();
 
-		Schema::Table("_Engine")
+		Schema::Table("_engine")
 			->ID()
 			->Integer("userID")
 			->String("uniqueID")
@@ -38,8 +38,8 @@ class migration_base implements IMigration
 
 	public function Down()
 	{
-		Schema::Table("_User")->Drop();
-		Schema::Table("_Engine")->Drop();
+		Schema::Table("_user")->Drop();
+		Schema::Table("_engine")->Drop();
 	}
 }
 

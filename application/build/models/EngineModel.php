@@ -10,7 +10,7 @@ use Warp\Utils\Enumerations\SystemField;
  
 class EngineModel extends Model
 {
-	protected static $source = "_Engine";
+	protected static $source = "_engine";
 	protected static $key = "id";
 	protected static $fields = array();
 
@@ -25,5 +25,3 @@ class EngineModel extends Model
 		self::Has("status")->Lookup("queued","processing","succeeded","failed","cancelled");
 	}
 }
-
-?>
