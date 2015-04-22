@@ -6,6 +6,6 @@
  * @description Base class for all migrations
  */
 
-class Migration extends Warp\Core\Migration {}
+class Migration extends Warp\Data\Migration {}
 
 ?>

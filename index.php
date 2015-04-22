@@ -23,5 +23,3 @@ App::Environment()
 START - Start the application
 ****************************************/
 App::Start();
-
-?>

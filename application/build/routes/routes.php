@@ -12,7 +12,6 @@ IMPORTED ROUTES
 
 Router::Import("api");
 Router::Import("engine");
-Router::Import("migration");
 
 /****************************************
 GENERAL ROUTES
@@ -22,28 +21,33 @@ Router::Home("HomeController");
 Router::None("NotFoundController");
 
 /****************************************
-USER-DEFINED ROUTES
-****************************************/
+SAMPLE ROUTES
 
-// Alias Demo
+//////////////////////////// 
+Alias Demo
+//////////////////////////// 
 Router::Get("hello/alpha:name/int:digits", function($parameters)
 {
 	return "Hello {$parameters["name"]}, is it me you're looking for? I'll call you at {$parameters["digits"]}";
 });
 
-// Protected Demo
+//////////////////////////// 
+Protected Demo
+//////////////////////////// 
 Router::Get("dashboard", function($parameters)
 {
 	echo "Hello " . Auth::User()->username;
 }, 
 array("before" => "auth.active", "failed" => "login"));
 
-// Login Demo
+//////////////////////////// 
+Login Demo
+//////////////////////////// 
 Router::Get("login", function()
 {
 	try
 	{
-		Auth::LogIn(array("username" => Input::FromGet("username"), "password" => Input::FromGet("password")));
+		Auth::LogIn(array("username" => Input::FromPost("username"), "password" => Input::FromPost("password")));
 		Navigate::Within("dashboard");
 	}
 	catch(Warp\Utils\Exceptions\AuthenticationException $e)
@@ -55,11 +59,13 @@ Router::Get("login", function()
 	}
 });
 
-// Logout Demo
+//////////////////////////// 
+Logout Demo
+//////////////////////////// 
 Router::Get("logout", function()
 {
 	Auth::LogOut();
 	Navigate::Within("/");
 });
 
-?>
+****************************************/

@@ -7,5 +7,3 @@
  */
 
 class App extends Warp\Core\Application {}
-
-?>

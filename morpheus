@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * Morepheus Console (Warp Framework CLI)
+ * @author Jake Josol
+ * @copyright MIT License
+ */
+
+require_once __DIR__."/references/references.php";
+
+/****************************************
+START - Start the CLI application
+****************************************/
+echo App::Start();
