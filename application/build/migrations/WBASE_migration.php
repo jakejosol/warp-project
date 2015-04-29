@@ -8,17 +8,17 @@
 
 use Warp\Utils\Interfaces\IMigration;
 
-class base_migration implements IMigration
+class WBASE_migration implements IMigration
 {
 	public function Up()
 	{
 		Schema::Table("_user")
 			->ID()
-			->String("secretKey", 100)
+			->String("secret_key", 100)
 			->String("username")
 			->Password()
-			->String("firstName", 50)
-			->String("lastName", 50)
+			->String("first_name", 50)
+			->String("last_name", 50)
 			->String("email")
 			->SessionToken()
 			->Timestamps()
@@ -27,21 +27,21 @@ class base_migration implements IMigration
 		Schema::Table("_job")
 			->ID()
 			->Text("handler")
-			->DateTime("runAt")
+			->DateTime("run_at")
 			->Integer("priority")
 			->Integer("attempts")
-			->Text("lastError")
-			->DateTime("lockedAt")
-			->DateTime("failedAt")
+			->Text("last_error")
+			->DateTime("locked_at")
+			->DateTime("failed_at")
 			->String("queue")
 			->Timestamps()
 			->Create();
 
 		Schema::Table("_engine")
 			->ID()
-			->Integer("userID")
-			->String("uniqueID")
-			->Integer("processInstance")
+			->Integer("user_id")
+			->String("unique_id")
+			->Integer("process_instance")
 			->String("title")
 			->String("type")
 			->String("status")
