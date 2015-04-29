@@ -14,7 +14,7 @@ class InputBox extends Control
 	protected $type = "input";
 	protected $classes = array("warp-input", "form-control");
 	protected $properties = array("type" => "text");
-	protected static $name = "Input";
+	protected static $name = "InputBox";
 	protected static $INPUT_SIZE = array(
 		"LARGE" => "lg",
 		"SMALL" => "sm",

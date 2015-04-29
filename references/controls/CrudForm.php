@@ -10,9 +10,9 @@ use Warp\Utils\Enumerations\InputType;
 
 class CrudForm extends Form
 {
-	protected static $name = "CRUDForm";
-	protected $LABEL_COLUMN_SPAN = 1;
-	protected $INPUT_COLUMN_SPAN = 11;
+	protected static $name = "CrudForm";
+	protected $LABEL_COLUMN_SPAN = 2;
+	protected $INPUT_COLUMN_SPAN = 10;
 		
 	public function SetModel($model)
 	{	
@@ -58,6 +58,9 @@ class CrudForm extends Form
 										->SetText($model->GetFieldLabel($field))
 										->SetColumnSpan($this->LABEL_COLUMN_SPAN)
 										->SetFor($field);
+
+			if($this->LABEL_COLUMN_SPAN < 12)
+				$label->SetProperty("style", "padding-top:5px; padding-right:20px; text-align:right");									
 			
 			if($model->GetFieldRequired($field))
 			{
